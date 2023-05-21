@@ -4,7 +4,7 @@
 \alias{valid_team_names}
 \title{Output Valid NBA or WNBA Team Abbreviations}
 \usage{
-valid_team_names(league = c("NBA", "WNBA"))
+valid_team_names()
 }
 \arguments{
 \item{league}{One of \code{"NBA"} or \code{"WNBA"}}

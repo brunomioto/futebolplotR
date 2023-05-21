@@ -15,7 +15,7 @@
 #' @param alpha Factor to modify color transparency via a call to [`scales::alpha()`].
 #'   If `NA` (the default) no transparency will be applied. Can also be a vector of
 #'   alphas. All alpha levels must be in range `[0,1]`.
-#' @name scale_nba
+#' @name scale_futebol
 #' @seealso The theme elements [element_futebol_logo()] to
 #'   replace axis text labels with logos.
 #' @aliases NULL

@@ -4,16 +4,16 @@
 \alias{clean_team_abbrs}
 \title{Standardize NBA/WNBA Team Abbreviations}
 \usage{
-clean_team_abbrs(abbr, league = c("NBA", "WNBA"), keep_non_matches = TRUE)
+clean_team_abbrs(abbr, keep_non_matches = TRUE)
 }
 \arguments{
 \item{abbr}{a character vector of abbreviations}
 
-\item{league}{One of \code{"NBA"} or \code{"WNBA"}}
-
 \item{keep_non_matches}{If \code{TRUE} (the default) an element of \code{abbr} that can't
 be matched to any of the internal mapping vectors will be kept as is. Otherwise
 it will be replaced with \code{NA}.}
+
+\item{league}{One of \code{"NBA"} or \code{"WNBA"}}
 }
 \value{
 A character vector with the length of \code{abbr} and cleaned team abbreviations

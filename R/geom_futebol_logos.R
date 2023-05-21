@@ -99,7 +99,6 @@ geom_futebol_logos <- function(mapping = NULL, data = NULL,
     inherit.aes = inherit.aes,
     params = list(
       na.rm = na.rm,
-      league = "NBA",
       ...
     )
   )
