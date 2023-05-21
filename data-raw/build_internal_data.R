@@ -1,9 +1,17 @@
 ## code to prepare `build_internal_data` dataset goes here
-teams_colors_logos <- hoopR::espn_nba_teams()
+# teams_colors_logos <- hoopR::espn_nba_teams()
+teams_colors_logos <- dplyr::tibble(
+  logo = c(
+
+  )
+)
+
+teams_colors_logos$logo[1] <- "https://upload.wikimedia.org/wikipedia/commons/1/15/Santos_Logo.png"
+teams_colors_logos$logo[2] <- "https://upload.wikimedia.org/wikipedia/commons/a/ad/Fluminense_FC_escudo.png"
 
 purrr::walk(teams_colors_logos$abbreviation, function(abbr){
   url <- teams_colors_logos$logo[teams_colors_logos$abbreviation == abbr]
-  download.file(url, file.path("inst", "NBA", paste0(abbr, ".png")))
+  download.file(url, file.path("inst", "NBA", paste0(abbr, ".png")), mode = 'wb')
 })
 
 nba_primary_colors <- paste0("#", teams_colors_logos$color) |>
@@ -11,7 +19,6 @@ nba_primary_colors <- paste0("#", teams_colors_logos$color) |>
 
 nba_secondary_colors <- paste0("#", teams_colors_logos$alternate_color) |>
   rlang::set_names(teams_colors_logos$abbreviation)
-
 
 # WNBA --------------------------------------------------------------------
 
