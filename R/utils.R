@@ -11,12 +11,8 @@
 #'
 #' # List valid WNBA team abbreviations
 #' valid_team_names("WNBA")
-valid_team_names <- function(league = c("NBA", "WNBA")){
-  league <- rlang::arg_match0(league, c("NBA", "WNBA"))
-  map <- switch (league,
-    "NBA" = nbaplotR::nba_team_abbr_mapping,
-    "WNBA" = nbaplotR::wnba_team_abbr_mapping
-  )
+valid_team_names <- function(){
+  map <- futebolplotR::futebol_team_abbr_mapping
   n <- sort(unique(map))
   n
 }
@@ -58,23 +54,28 @@ valid_team_names <- function(league = c("NBA", "WNBA")){
 #' # replace non matches
 #' nbaplotR::clean_team_abbrs(b, league = "WNBA", keep_non_matches = FALSE)
 clean_team_abbrs <- function(abbr,
-                             league = c("NBA", "WNBA"),
+                             #league = c("NBA", "WNBA"),
                              keep_non_matches = TRUE) {
   stopifnot(is.character(abbr))
-  league <- rlang::arg_match0(league, c("NBA", "WNBA"))
+  #league <- rlang::arg_match0(league, c("NBA", "WNBA"))
 
-  m <- switch (league,
-               "NBA" = nbaplotR::nba_team_abbr_mapping,
-               "WNBA" = nbaplotR::wnba_team_abbr_mapping
-  )
+  # m <- switch (league,
+  #              "NBA" = nbaplotR::nba_team_abbr_mapping,
+  #              "WNBA" = nbaplotR::wnba_team_abbr_mapping
+  # )
+
+  m <- futebolplotR::futebol_team_abbr_mapping
 
   a <- unname(m[toupper(abbr)])
 
-  if (any(is.na(a)) && getOption("nbaplotR.verbose", default = interactive())) {
-    map <- switch (league,
-                   "NBA" = "nbaplotR::nba_team_abbr_mapping",
-                   "WNBA" = "nbaplotR::wnba_team_abbr_mapping"
-    )
+  if (any(is.na(a)) && getOption("futebolplotR.verbose", default = interactive())) {
+    # map <- switch (league,
+    #                "NBA" = "nbaplotR::nba_team_abbr_mapping",
+    #                "WNBA" = "nbaplotR::wnba_team_abbr_mapping"
+    # )
+
+    map <- "futebolplotR::futebol_team_abbr_mapping"
+
     cli::cli_warn("Abbreviations not found in {.code {map}}: {utils::head(abbr[is.na(a)], 10)}")
   }
 
@@ -84,6 +85,6 @@ clean_team_abbrs <- function(abbr,
 }
 
 # internal helper that outputs local path to logo files
-logo_from_abbr <- function(abbr, league = c("NBA", "WNBA")){
-  system.file(paste0(league, "/", abbr, ".png"), package = "nbaplotR")
+logo_from_abbr <- function(abbr){
+  system.file(paste0("/", abbr, ".png"), package = "futebolplotR")
 }

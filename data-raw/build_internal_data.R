@@ -1,45 +1,28 @@
 ## code to prepare `build_internal_data` dataset goes here
 # teams_colors_logos <- hoopR::espn_nba_teams()
-teams_colors_logos <- dplyr::tibble(
-  logo = c(
 
-  )
+teams_colors_logos <- dplyr::tibble(
+  brasileirao::teams,
+  badge = paste0("https://github.com/brunomioto/futebolplotR/tree/main/inst/", abbr, ".png")
 )
 
-teams_colors_logos$logo[1] <- "https://upload.wikimedia.org/wikipedia/commons/1/15/Santos_Logo.png"
-teams_colors_logos$logo[2] <- "https://upload.wikimedia.org/wikipedia/commons/a/ad/Fluminense_FC_escudo.png"
 
 purrr::walk(teams_colors_logos$abbreviation, function(abbr){
   url <- teams_colors_logos$logo[teams_colors_logos$abbreviation == abbr]
-  download.file(url, file.path("inst", "NBA", paste0(abbr, ".png")), mode = 'wb')
+  #add mode = 'wb' on windows
+  download.file(url, file.path("inst", paste0(abbr, ".png")), mode = 'wb')
 })
 
-nba_primary_colors <- paste0("#", teams_colors_logos$color) |>
-  rlang::set_names(teams_colors_logos$abbreviation)
+futebol_primary_colors <- teams_colors_logos$color1 |>
+  rlang::set_names(teams_colors_logos$abbr)
 
-nba_secondary_colors <- paste0("#", teams_colors_logos$alternate_color) |>
-  rlang::set_names(teams_colors_logos$abbreviation)
-
-# WNBA --------------------------------------------------------------------
-
-wnba_teams <- wehoop::espn_wnba_teams()
-
-purrr::walk(wnba_teams$abbreviation, function(abbr){
-  url <- wnba_teams$logo[wnba_teams$abbreviation == abbr]
-  download.file(url, file.path("inst", "WNBA", paste0(abbr, ".png")))
-})
-
-wnba_primary_colors <- paste0("#", wnba_teams$color) |>
-  rlang::set_names(wnba_teams$abbreviation)
-
-wnba_secondary_colors <- paste0("#", wnba_teams$alternate_color) |>
-  rlang::set_names(wnba_teams$abbreviation)
-
+futebol_secondary_colors <- teams_colors_logos$color2 |>
+  rlang::set_names(teams_colors_logos$abbr)
 
 # Write Data --------------------------------------------------------------
 
 usethis::use_data(
-  nba_primary_colors, nba_secondary_colors,
-  wnba_primary_colors, wnba_secondary_colors,
+  futebol_primary_colors,
+  futebol_secondary_colors,
   internal = TRUE, overwrite = TRUE
 )
