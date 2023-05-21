@@ -3,9 +3,9 @@
 \docType{data}
 \name{GeomNBAlogo}
 \alias{GeomNBAlogo}
-\alias{nbaplotR}
-\alias{nbaplotR-package}
-\title{nbaplotR: NBA Logo Plots in 'ggplot2'}
+\alias{futebolplotR}
+\alias{futebolplotR-package}
+\title{futebolplotR: Brazilian Soccer Logo Plots in 'ggplot2'}
 \format{
 An object of class \code{GeomNBAlogo} (inherits from \code{Geom}, \code{ggproto}, \code{gg}) of length 5.
 }
@@ -15,19 +15,10 @@ GeomNBAlogo
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-A set of functions to visualize National Basketball League analysis in 'ggplot2'.
-}
-\seealso{
-Useful links:
-\itemize{
-  \item \url{https://github.com/mrcaseb/nbaplotR}
-  \item \url{https://mrcaseb.github.io/nbaplotR/}
-  \item Report bugs at \url{https://github.com/mrcaseb/nbaplotR/issues}
-}
-
+A set of functions to visualize Brazilian Soccer analysis in 'ggplot2'.
 }
 \author{
-\strong{Maintainer}: Sebastian Carl \email{mrcaseb@gmail.com}
+\strong{Maintainer}: Mioto Bruno \email{brunomioto97@gmail.com}
 
 }
 \keyword{datasets}

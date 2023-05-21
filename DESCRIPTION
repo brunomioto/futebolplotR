@@ -1,9 +1,9 @@
-Package: nbaplotR
-Title: NBA Logo Plots in 'ggplot2'
-Version: 0.0.3
+Package: futebolplotR
+Title: Brazilian Soccer Logo Plots in 'ggplot2'
+Version: 0.0.1
 Authors@R: 
-    person("Sebastian", "Carl", , "mrcaseb@gmail.com", role = c("aut", "cre"))
-Description: A set of functions to visualize National Basketball League
+    person("Mioto", "Bruno", , "brunomioto97@gmail.com", role = c("aut", "cre"))
+Description: A set of functions to visualize Brazilian Soccer
     analysis in 'ggplot2'.
 License: MIT + file LICENSE
 Depends: 

@@ -98,10 +98,10 @@ A typical size is \code{height = 0.1} (see below examples).}
 
 \examples{
 \donttest{
-library(nbaplotR)
+library(futebolplotR)
 library(ggplot2)
 
-team_abbr <- nbaplotR::valid_team_names(league = "WNBA")
+team_abbr <- futebolplotR::valid_team_names(league = "WNBA")
 
 df <- data.frame(
   a = rep(1:4, 3),
