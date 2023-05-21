@@ -14,7 +14,10 @@
 valid_team_names <- function(){
   map <- futebolplotR::futebol_team_abbr_mapping
   n <- sort(unique(map))
-  n
+  #n
+  teams <- list.files("inst")
+  logo_teams <- gsub('.png', '', teams)
+  n[n %in% logo_teams]
 }
 
 

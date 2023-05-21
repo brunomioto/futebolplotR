@@ -11,11 +11,20 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 status](https://www.r-pkg.org/badges/version/futebolplotR)](https://CRAN.R-project.org/package=futebolplotR)
 
 <!-- badges: end -->
-<!-- The goal of nbaplotR is to provide functions and geoms that help visualization of NBA/WNBA related analysis. It provides a ggplot2 geom that does the heavy lifting of plotting NBA/WNBA logos in high quality, with correct aspect ratio and possible transparency. All of this is done by the powerful [ggpath package](https://mrcaseb.github.io/ggpath/). -->
+
+The code for this package was copied **heavily** from
+[nbaplotR](https://mrcaseb.github.io/nbaplotR/) with minor changes to
+support Brazilian soccer team logos.
+
+The goal of futebolplotR is to provide functions and geoms that help
+visualization of Brazilian soccer related analysis. It provides a
+ggplot2 geom that does the heavy lifting of plotting brazilian soccer
+logos in high quality, with correct aspect ratio and possible
+transparency.
 
 ## Installation
 
-<!-- The easiest way to get nbaplotR is to install it from [CRAN](https://cran.r-project.org/package=nbaplotR) with: -->
+<!-- The easiest way to get futeboplotR is to install it from [CRAN](https://cran.r-project.org/package=nbaplotR) with: -->
 <!-- ``` r -->
 <!-- install.packages("nbaplotR") -->
 <!-- ``` -->
@@ -28,3 +37,33 @@ can install the development version of futebolplotR either from
 if (!require("pak")) install.packages("pak")
 pak::pak("brunomioto/futebolplotR")
 ```
+
+## Using futebolplotR
+
+The key function in the package is geom_futebol_logo() which will add
+Brazilian soccer team logos to a ggplot. Here you can see all the
+current available teams to plot.
+
+``` r
+library(futebolplotR)
+library(ggplot2)
+
+team <- futebolplotR::valid_team_names()
+team <- team[1:20]
+df <- data.frame(
+  a = rep(1:5, 4),
+  b = sort(rep(1:4, 5), decreasing = TRUE),
+  teams = team
+)
+
+ggplot(df, aes(x = a, y = b)) +
+  geom_futebol_logos(aes(team_abbr = teams), width = 0.1) +
+  geom_label(aes(label = teams), nudge_y = -0.35)+
+  theme_void()+
+  theme(
+    plot.margin = margin(15,15,15,15,"pt")
+  )+
+  coord_cartesian(clip = "off")
+```
+
+<img src="man/figures/README-plot-1.png" width="100%" />
