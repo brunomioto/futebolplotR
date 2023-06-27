@@ -6,9 +6,6 @@
 \usage{
 valid_team_names()
 }
-\arguments{
-\item{league}{One of \code{"NBA"} or \code{"WNBA"}}
-}
 \value{
 A vector of type \code{"character"}.
 }
@@ -16,9 +13,6 @@ A vector of type \code{"character"}.
 The abbreviations used in this function are extracted from ESPN
 }
 \examples{
-# List valid NBA team abbreviations
-valid_team_names("NBA")
-
-# List valid WNBA team abbreviations
-valid_team_names("WNBA")
+# List valid Brazilian soccer team abbreviations
+valid_team_names()
 }

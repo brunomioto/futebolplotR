@@ -23,7 +23,7 @@ futebol_team_abbr_mapping <-
   #     "UTAH", "UTA",
   #     "WSH", "WAS"
   #   )
-  # ) |>
+  # ) |> |>
   dplyr::arrange(team) |>
   tibble::deframe()
 

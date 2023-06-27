@@ -2,21 +2,18 @@
 #'
 #' @description The abbreviations used in this function are extracted from ESPN
 #'
-#' @param league One of `"NBA"` or `"WNBA"`
 #' @export
 #' @return A vector of type `"character"`.
 #' @examples
-#' # List valid NBA team abbreviations
-#' valid_team_names("NBA")
-#'
-#' # List valid WNBA team abbreviations
-#' valid_team_names("WNBA")
+#' # List valid Brazilian soccer team abbreviations
+#' valid_team_names()
+
 valid_team_names <- function(){
   map <- futebolplotR::futebol_team_abbr_mapping
   n <- sort(unique(map))
   #n
   teams <- list.files("inst")
-  logo_teams <- gsub('.png', '', teams)
+  logo_teams <- gsub('.svg', '', teams)
   n[n %in% logo_teams]
 }
 
@@ -89,5 +86,9 @@ clean_team_abbrs <- function(abbr,
 
 # internal helper that outputs local path to logo files
 logo_from_abbr <- function(abbr){
-  system.file(paste0("/", abbr, ".png"), package = "futebolplotR")
+
+  system.file(paste0("/", abbr, ".svg"), package = "futebolplotR")
+  #paste0("/", abbr, ".svg")
+
+
 }
