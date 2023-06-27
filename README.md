@@ -14,7 +14,7 @@ status](https://www.r-pkg.org/badges/version/futebolplotR)](https://CRAN.R-proje
 
 The code for this package was copied **heavily** from
 [nbaplotR](https://mrcaseb.github.io/nbaplotR/) with minor changes to
-support Brazilian soccer team logos.
+support Brazilian soccer team badges.
 
 The goal of futebolplotR is to provide functions and geoms that help
 visualization of Brazilian soccer related analysis. It provides a
@@ -40,19 +40,19 @@ pak::pak("brunomioto/futebolplotR")
 
 ## Using futebolplotR
 
-The key function in the package is geom_futebol_logo() which will add
+The key function in the package is geom_futebol_logos() which will add
 Brazilian soccer team logos to a ggplot. Here you can see all the
 current available teams to plot.
 
 ``` r
-library(futebolplotR)
+#library(futebolplotR)
 library(ggplot2)
 
-team <- futebolplotR::valid_team_names()
-team <- team[1:20]
+team <- valid_team_names()
+
 df <- data.frame(
-  a = rep(1:5, 4),
-  b = sort(rep(1:4, 5), decreasing = TRUE),
+  a = c(rep(1:5, 8),c(1,2,3)),
+  b = sort(c(rep(1:8, 5), c(0,0,0)), decreasing = TRUE),
   teams = team
 )
 

@@ -57,12 +57,6 @@ clean_team_abbrs <- function(abbr,
                              #league = c("NBA", "WNBA"),
                              keep_non_matches = TRUE) {
   stopifnot(is.character(abbr))
-  #league <- rlang::arg_match0(league, c("NBA", "WNBA"))
-
-  # m <- switch (league,
-  #              "NBA" = nbaplotR::nba_team_abbr_mapping,
-  #              "WNBA" = nbaplotR::wnba_team_abbr_mapping
-  # )
 
   m <- futebolplotR::futebol_team_abbr_mapping
 
