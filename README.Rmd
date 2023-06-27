@@ -26,7 +26,7 @@ devtools::load_all()
 
 <!-- badges: end -->
 
-The code for this package was copied **heavily** from [nbaplotR](https://mrcaseb.github.io/nbaplotR/) with minor changes to support Brazilian soccer team logos.
+The code for this package was copied **heavily** from [nbaplotR](https://mrcaseb.github.io/nbaplotR/) with minor changes to support Brazilian soccer team badges.
 
 The goal of futebolplotR is to provide functions and geoms that help visualization of Brazilian soccer related analysis. It provides a ggplot2 geom that does the heavy lifting of plotting brazilian soccer logos in high quality, with correct aspect ratio and possible transparency.
 

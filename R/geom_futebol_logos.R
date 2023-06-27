@@ -118,7 +118,7 @@ GeomFUTlogo <- ggplot2::ggproto(
 
     # league <- match.arg(league)
 
-    team_abbr <- clean_team_abbrs(as.character(team_abbr), keep_non_matches = FALSE)
+    team_abbr <- clean_team_abbrs(as.character(data$team_abbr), keep_non_matches = FALSE)
 
     data$path <- logo_from_abbr(team_abbr)
 

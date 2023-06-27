@@ -88,7 +88,5 @@ clean_team_abbrs <- function(abbr,
 logo_from_abbr <- function(abbr){
 
   system.file(paste0("/", abbr, ".svg"), package = "futebolplotR")
-  #paste0("/", abbr, ".svg")
-
 
 }

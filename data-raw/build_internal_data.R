@@ -2,7 +2,7 @@
 # teams_colors_logos <- hoopR::espn_nba_teams()
 
 teams_colors_logos <- dplyr::tibble(
-  brasileirao::teams,
+  teams,
   badge = paste0("https://github.com/brunomioto/futebolplotR/tree/main/inst/", abbr, ".svg")
 )
 
