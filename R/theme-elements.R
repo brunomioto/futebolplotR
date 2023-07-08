@@ -4,12 +4,12 @@
 #' In conjunction with the [ggplot2::theme] system, the following `element_`
 #' functions enable images in non-data components of the plot, e.g. axis text.
 #'
-#'   - `element_futebol_logo()`: draws NBA team logos instead of their abbreviations.
+#'   - `element_futebol_badge()`: draws NBA team badges instead of their abbreviations.
 #'
-#' @details The elements translate NBA/WNBA team abbreviations into logo images.
+#' @details The elements translate NBA/WNBA team abbreviations into badge images.
 #' @inheritParams ggpath::element_path
 #'
-#' @seealso [geom_futebol_logos()], and [ggpath::element_path()]
+#' @seealso [geom_futebol_badges()], and [ggpath::element_path()]
 #'   for more information on valid team abbreviations, and other parameters.
 #' @return An S3 object of class `element`.
 #' @examples
@@ -26,21 +26,21 @@
 #'   team = team_abbr
 #' )
 #'
-#' # use logos for x-axis
+#' # use badges for x-axis
 #' ggplot(df, aes(x = team, y = random_value)) +
 #'   geom_col(aes(color = team, fill = team), width = 0.5) +
 #'   scale_color_nba(type = "secondary") +
 #'   scale_fill_nba(alpha = 0.4) +
 #'   theme_minimal() +
-#'   theme(axis.text.x = element_nba_logo())
+#'   theme(axis.text.x = element_nba_badge())
 #'
-#' # use logos for y-axis
+#' # use badges for y-axis
 #' ggplot(df, aes(y = team, x = random_value)) +
 #'   geom_col(aes(color = team, fill = team), width = 0.5) +
 #'   scale_color_nba(type = "secondary") +
 #'   scale_fill_nba(alpha = 0.4) +
 #'   theme_minimal() +
-#'   theme(axis.text.y = element_nba_logo())
+#'   theme(axis.text.y = element_nba_badge())
 #'
 #' }
 #' @name element
@@ -52,12 +52,12 @@ NULL
 
 #' @export
 #' @rdname element
-element_futebol_logo <- function(alpha = NULL, colour = NA, hjust = NULL, vjust = NULL,
+element_futebol_badge <- function(alpha = NULL, colour = NA, hjust = NULL, vjust = NULL,
                              color = NULL, size = 0.5) {
   if (!is.null(color))  colour <- color
   structure(
     list(alpha = alpha, colour = colour, hjust = hjust, vjust = vjust, size = size),
-    class = c("element_futebol_logo", "element_text", "element")
+    class = c("element_futebol_badge", "element_text", "element")
   )
 }
 
@@ -68,7 +68,7 @@ element_futebol_logo <- function(alpha = NULL, colour = NA, hjust = NULL, vjust 
 # It translates the labels (which are team abbreviations) to local paths
 # and passes those paths to ggpath
 #' @export
-element_grob.element_futebol_logo <- function(element, label = "", x = NULL, y = NULL,
+element_grob.element_futebol_badge <- function(element, label = "", x = NULL, y = NULL,
                                           alpha = NULL, colour = NULL,
                                           hjust = 0.5, vjust = 0.5,
                                           size = NULL, ...) {
@@ -77,7 +77,7 @@ element_grob.element_futebol_logo <- function(element, label = "", x = NULL, y =
 
   # Standardize team abbreviations and translate them to local paths
   team_abbr <- clean_team_abbrs(label, keep_non_matches = FALSE)
-  label <- logo_from_abbr(team_abbr)
+  label <- badge_from_abbr(team_abbr)
 
   # We want ggpath to do the actual work, so we change the class here to make
   # ggplot2 call the S3 method of ggpath

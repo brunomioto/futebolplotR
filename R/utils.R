@@ -13,8 +13,8 @@ valid_team_names <- function(){
   n <- sort(unique(map))
   #n
   teams <- list.files("inst")
-  logo_teams <- gsub('.svg', '', teams)
-  n[n %in% logo_teams]
+  badge_teams <- gsub('.svg', '', teams)
+  n[n %in% badge_teams]
 }
 
 
@@ -78,8 +78,8 @@ clean_team_abbrs <- function(abbr,
   a
 }
 
-# internal helper that outputs local path to logo files
-logo_from_abbr <- function(abbr){
+# internal helper that outputs local path to badge files
+badge_from_abbr <- function(abbr){
 
   system.file(paste0("/", abbr, ".svg"), package = "futebolplotR")
 

@@ -1,12 +1,12 @@
-#' ggplot2 Layer for Visualizing NBA Team Logos
+#' ggplot2 Layer for Visualizing NBA Team badges
 #'
-#' @description This geom is used to plot NBA team logos instead
+#' @description This geom is used to plot NBA team badges instead
 #'   of points in a ggplot. It requires x, y aesthetics as well as a valid NBA
 #'   team abbreviation. The latter can be checked with [`valid_team_names()`].
 #'
 #' @inheritParams ggplot2::geom_point
 #' @section Aesthetics:
-#' `geom_nba_logos()` understands the following aesthetics (required aesthetics are in bold):
+#' `geom_nba_badges()` understands the following aesthetics (required aesthetics are in bold):
 #' \itemize{
 #'   \item{**x**}{ - The x-coordinate.}
 #'   \item{**y**}{ - The y-coordinate.}
@@ -50,9 +50,9 @@
 #' # also set a custom fill colour for the non "A" teams
 #' df$colour <- ifelse(matches, NA, "gray")
 #'
-#' # scatterplot of all logos
+#' # scatterplot of all badges
 #' ggplot(df, aes(x = a, y = b)) +
-#'   geom_nba_logos(aes(team_abbr = teams), width = 0.075) +
+#'   geom_nba_badges(aes(team_abbr = teams), width = 0.075) +
 #'   geom_label(aes(label = teams), nudge_y = -0.35, alpha = 0.5) +
 #'   theme_void()
 #'
@@ -60,7 +60,7 @@
 #' # please note that you have to add scale_alpha_identity() to use the alpha
 #' # values in your dataset!
 #' ggplot(df, aes(x = a, y = b)) +
-#'   geom_nba_logos(aes(team_abbr = teams, alpha = alpha), width = 0.075) +
+#'   geom_nba_badges(aes(team_abbr = teams, alpha = alpha), width = 0.075) +
 #'   geom_label(aes(label = teams), nudge_y = -0.35, alpha = 0.5) +
 #'   scale_alpha_identity() +
 #'   theme_void()
@@ -69,20 +69,20 @@
 #' # please note that you have to add scale_alpha_identity() as well as
 #' # scale_color_identity() to use the alpha and colour values in your dataset!
 #' ggplot(df, aes(x = a, y = b)) +
-#'   geom_nba_logos(aes(team_abbr = teams, alpha = alpha, colour = colour), width = 0.075) +
+#'   geom_nba_badges(aes(team_abbr = teams, alpha = alpha, colour = colour), width = 0.075) +
 #'   geom_label(aes(label = teams), nudge_y = -0.35, alpha = 0.5) +
 #'   scale_alpha_identity() +
 #'   scale_color_identity() +
 #'   theme_void()
 #'
-#' # apply alpha as constant for all logos
+#' # apply alpha as constant for all badges
 #' ggplot(df, aes(x = a, y = b)) +
-#'   geom_nba_logos(aes(team_abbr = teams), width = 0.075, alpha = 0.6) +
+#'   geom_nba_badges(aes(team_abbr = teams), width = 0.075, alpha = 0.6) +
 #'   geom_label(aes(label = teams), nudge_y = -0.35, alpha = 0.5) +
 #'   theme_void()
 #'
 #' }
-geom_futebol_logos <- function(mapping = NULL, data = NULL,
+geom_futebol_badges <- function(mapping = NULL, data = NULL,
                            stat = "identity", position = "identity",
                            ...,
                            na.rm = FALSE,
@@ -93,7 +93,7 @@ geom_futebol_logos <- function(mapping = NULL, data = NULL,
     data = data,
     mapping = mapping,
     stat = stat,
-    geom = GeomFUTlogo,
+    geom = GeomFUTbadge,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
@@ -106,8 +106,8 @@ geom_futebol_logos <- function(mapping = NULL, data = NULL,
 
 #' @rdname futebolplotR-package
 #' @export
-GeomFUTlogo <- ggplot2::ggproto(
-  "GeomFUTlogo", ggplot2::Geom,
+GeomFUTbadge <- ggplot2::ggproto(
+  "GeomFUTbadge", ggplot2::Geom,
   required_aes = c("x", "y", "team_abbr"),
   # non_missing_aes = c(""),
   default_aes = ggplot2::aes(
@@ -120,7 +120,7 @@ GeomFUTlogo <- ggplot2::ggproto(
 
     team_abbr <- clean_team_abbrs(as.character(data$team_abbr), keep_non_matches = FALSE)
 
-    data$path <- logo_from_abbr(team_abbr)
+    data$path <- badge_from_abbr(team_abbr)
 
     ggpath::GeomFromPath$draw_panel(
       data = data,

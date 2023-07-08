@@ -141,6 +141,6 @@ ggplot(df, aes(x = teams, y = random_value)) +
 }
 }
 \seealso{
-The theme elements \code{\link[=element_futebol_logo]{element_futebol_logo()}} to
-replace axis text labels with logos.
+The theme elements \code{\link[=element_futebol_badge]{element_futebol_badge()}} to
+replace axis text labels with badges.
 }

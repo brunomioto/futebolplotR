@@ -2,7 +2,13 @@ Package: futebolplotR
 Title: Brazilian Soccer Logo Plots in 'ggplot2'
 Version: 0.0.1
 Authors@R: 
-    person("Mioto", "Bruno", , "brunomioto97@gmail.com", role = c("aut", "cre"))
+    c(person(given = "Bruno",
+             family = "Mioto",
+             role = c("cre", "aut"),
+             email = "brunomioto97@gmail.com"),
+      person(given = "Gabriela",
+             family = "Junqueira",
+             role = "aut"))
 Description: A set of functions to visualize Brazilian Soccer
     analysis in 'ggplot2'.
 License: MIT + file LICENSE

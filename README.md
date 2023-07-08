@@ -57,8 +57,13 @@ df <- data.frame(
 )
 
 ggplot(df, aes(x = a, y = b)) +
-  geom_futebol_logos(aes(team_abbr = teams), width = 0.1) +
-  geom_label(aes(label = teams), nudge_y = -0.35)+
+  geom_futebol_badges(aes(team_abbr = teams), width = 0.1) +
+  geom_label(aes(label = teams,
+                 color = teams,
+                 fill = teams), 
+             nudge_y = -0.35)+
+  scale_color_futebol(type = "secondary")+
+  scale_fill_futebol(type = "primary")+
   theme_void()+
   theme(
     plot.margin = margin(15,15,15,15,"pt")

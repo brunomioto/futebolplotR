@@ -16,8 +16,8 @@
 #'   If `NA` (the default) no transparency will be applied. Can also be a vector of
 #'   alphas. All alpha levels must be in range `[0,1]`.
 #' @name scale_futebol
-#' @seealso The theme elements [element_futebol_logo()] to
-#'   replace axis text labels with logos.
+#' @seealso The theme elements [element_futebol_badge()] to
+#'   replace axis text labels with badges.
 #' @aliases NULL
 #' @examples
 #' \donttest{
