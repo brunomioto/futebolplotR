@@ -22,6 +22,9 @@ ggplot2 geom that does the heavy lifting of plotting brazilian soccer
 logos in high quality, with correct aspect ratio and possible
 transparency.
 
+The FutebolplotR contains logos of the teams participating in the
+Brasileirão Série A football league from 2003 to the nowadays.
+
 ## Installation
 
 <!-- The easiest way to get futeboplotR is to install it from [CRAN](https://cran.r-project.org/package=nbaplotR) with: -->
