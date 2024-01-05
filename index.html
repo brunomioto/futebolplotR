@@ -65,17 +65,14 @@
 <!-- badges: start -->
 
 <!-- badges: end -->
-<p>The code for this package was copied <strong>heavily</strong> from <a href="https://mrcaseb.github.io/nbaplotR/" class="external-link">nbaplotR</a> with minor changes to support Brazilian soccer team badges.</p>
-<p>The goal of futebolplotR is to provide functions and geoms that help visualization of Brazilian soccer related analysis. It provides a ggplot2 geom that does the heavy lifting of plotting brazilian soccer logos in high quality, with correct aspect ratio and possible transparency.</p>
-<p>The FutebolplotR contains logos of the teams participating in the Brasileirão Série A football league from 2003 to the nowadays.</p>
+<p>The code for this package was <strong>heavily</strong> based on <a href="https://mrcaseb.github.io/nbaplotR/" class="external-link">nbaplotR</a> with minor changes to support Brazilian soccer team badges.</p>
+<p>The goal of <strong>futebolplotR</strong> is to provide functions and geoms that help visualization of <strong>Brazilian soccer</strong> related analysis. It provides a ggplot2 geom that does the heavy lifting of plotting brazilian soccer badges in high quality, with correct aspect ratio and possible transparency.</p>
+<p>The <strong>futebolplotR</strong> contains badges of the teams participating in the Brasileirão Série A football league from 2003 to the nowadays.</p>
+<p>This package can be used with data from <a href="https://github.com/williamorim/brasileirao" class="external-link">brasileirao</a> R package.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<!-- The easiest way to get futeboplotR is to install it from [CRAN](https://cran.r-project.org/package=nbaplotR) with: -->
-<!-- ``` r -->
-<!-- install.packages("nbaplotR") -->
-<!-- ``` -->
-<p>To get a bug fix or to use a feature from the development version, you can install the development version of futebolplotR either from <a href="https://github.com/brunomioto/futebolplotR/" class="external-link">GitHub</a> with:</p>
+<p>You can install the development version of futebolplotR from <a href="https://github.com/brunomioto/futebolplotR/" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://pak.r-lib.org/" class="external-link">"pak"</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"pak"</span><span class="op">)</span></span>
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"brunomioto/futebolplotR"</span><span class="op">)</span></span></code></pre></div>
@@ -83,16 +80,16 @@
 <div class="section level2">
 <h2 id="using-futebolplotr">Using futebolplotR<a class="anchor" aria-label="anchor" href="#using-futebolplotr"></a>
 </h2>
-<p>The key function in the package is geom_futebol_logos() which will add Brazilian soccer team logos to a ggplot. Here you can see all the current available teams to plot.</p>
+<p>The key function in the package is <code><a href="reference/geom_futebol_badges.html">geom_futebol_badges()</a></code> which will add Brazilian soccer team badges to a ggplot. Here you can see all the current available teams (currently 43) to plot.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">#library(futebolplotR)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/brunomioto/futebolplotR" class="external-link">futebolplotR</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">team</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/valid_team_names.html">valid_team_names</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>  a <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">8</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  b <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">8</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  a <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">8</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  b <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">8</span>, <span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>  teams <span class="op">=</span> <span class="va">team</span></span>
 <span><span class="op">)</span></span>
 <span></span>
