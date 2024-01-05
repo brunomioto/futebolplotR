@@ -1,5 +1,5 @@
 Package: futebolplotR
-Title: Brazilian Soccer Logo Plots in 'ggplot2'
+Title: Brazilian Soccer Badges Plots in 'ggplot2'
 Version: 0.0.1
 Authors@R: 
     c(person(given = "Bruno",
