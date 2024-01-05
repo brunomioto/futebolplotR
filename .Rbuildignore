@@ -9,3 +9,4 @@
 ^docs$
 ^pkgdown$
 ^man/figures/social_card\.png$
+^vignettes/articles$
