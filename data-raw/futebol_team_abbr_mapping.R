@@ -3,8 +3,8 @@
 
 futebol_team_abbr_mapping <-
   tibble::tibble(
-    alt = futebolplotR::teams$abbr,
-    team = futebolplotR::teams$abbr
+    alt = brasileirao::teams$abbr,
+    team = brasileirao::teams$abbr
   ) |>
   dplyr::arrange(team) |>
   tibble::deframe()

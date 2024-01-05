@@ -34,20 +34,18 @@ An S3 object of class \code{element}.
 In conjunction with the \link[ggplot2:theme]{ggplot2::theme} system, the following \code{element_}
 functions enable images in non-data components of the plot, e.g. axis text.
 \itemize{
-\item \code{element_futebol_badge()}: draws NBA team badges instead of their abbreviations.
+\item \code{element_futebol_badge()}: draws Brazilian Soccer team badges instead of their abbreviations.
 }
 }
 \details{
-The elements translate NBA/WNBA team abbreviations into badge images.
+The elements translate Brazilian Soccer team abbreviations into badge images.
 }
 \examples{
 \donttest{
 library(futebolplotR)
 library(ggplot2)
 
-######## NBA Examples ########
-
-team_abbr <- valid_team_names("NBA")
+team_abbr <- valid_team_names()
 
 df <- data.frame(
   random_value = runif(length(team_abbr), 0, 1),
@@ -57,18 +55,18 @@ df <- data.frame(
 # use badges for x-axis
 ggplot(df, aes(x = team, y = random_value)) +
   geom_col(aes(color = team, fill = team), width = 0.5) +
-  scale_color_nba(type = "secondary") +
-  scale_fill_nba(alpha = 0.4) +
+  scale_color_futebol(type = "secondary") +
+  scale_fill_futebol(alpha = 0.4) +
   theme_minimal() +
-  theme(axis.text.x = element_nba_badge())
+  theme(axis.text.x = element_futebol_badge())
 
 # use badges for y-axis
 ggplot(df, aes(y = team, x = random_value)) +
   geom_col(aes(color = team, fill = team), width = 0.5) +
-  scale_color_nba(type = "secondary") +
-  scale_fill_nba(alpha = 0.4) +
+  scale_color_futebol(type = "secondary") +
+  scale_fill_futebol(alpha = 0.4) +
   theme_minimal() +
-  theme(axis.text.y = element_nba_badge())
+  theme(axis.text.y = element_futebol_badge())
 
 }
 }

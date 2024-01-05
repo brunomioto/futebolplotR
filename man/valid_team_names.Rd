@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{valid_team_names}
 \alias{valid_team_names}
-\title{Output Valid NBA or WNBA Team Abbreviations}
+\title{Output Valid Brazilian Soccer Team Abbreviations}
 \usage{
 valid_team_names()
 }
@@ -10,7 +10,7 @@ valid_team_names()
 A vector of type \code{"character"}.
 }
 \description{
-The abbreviations used in this function are extracted from ESPN
+Output Valid Brazilian Soccer Team Abbreviations
 }
 \examples{
 # List valid Brazilian soccer team abbreviations

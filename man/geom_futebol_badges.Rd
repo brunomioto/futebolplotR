@@ -2,7 +2,7 @@
 % Please edit documentation in R/geom_futebol_badges.R
 \name{geom_futebol_badges}
 \alias{geom_futebol_badges}
-\title{ggplot2 Layer for Visualizing NBA Team badges}
+\title{ggplot2 Layer for Visualizing Brazilian Soccer Team badges}
 \usage{
 geom_futebol_badges(
   mapping = NULL,
@@ -69,8 +69,8 @@ A ggplot2 layer (\code{\link[ggplot2:layer]{ggplot2::layer()}}) that can be adde
 created with \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}.
 }
 \description{
-This geom is used to plot NBA team badges instead
-of points in a ggplot. It requires x, y aesthetics as well as a valid NBA
+This geom is used to plot Brazilian soccer team badges instead
+of points in a ggplot. It requires x, y aesthetics as well as a valid Brazilian soccer
 team abbreviation. The latter can be checked with \code{\link[=valid_team_names]{valid_team_names()}}.
 }
 \section{Aesthetics}{
@@ -104,20 +104,20 @@ library(ggplot2)
 team_abbr <- futebolplotR::valid_team_names()
 
 df <- data.frame(
-  a = rep(1:6, 5),
-  b = sort(rep(1:5, 6), decreasing = TRUE),
-  teams = team_abbr
+  a = rep(1:5, 2),
+  b = sort(rep(1:2, 5), decreasing = TRUE),
+  teams = team_abbr[1:10]
 )
 
 # keep alpha == 1 for all teams including an "A"
-matches <- grepl("A", team_abbr)
+matches <- grepl("A", team_abbr[1:10])
 df$alpha <- ifelse(matches, 1, 0.2)
 # also set a custom fill colour for the non "A" teams
 df$colour <- ifelse(matches, NA, "gray")
 
 # scatterplot of all badges
 ggplot(df, aes(x = a, y = b)) +
-  geom_nba_badges(aes(team_abbr = teams), width = 0.075) +
+  geom_futebol_badges(aes(team_abbr = teams), width = 0.075) +
   geom_label(aes(label = teams), nudge_y = -0.35, alpha = 0.5) +
   theme_void()
 
@@ -125,7 +125,7 @@ ggplot(df, aes(x = a, y = b)) +
 # please note that you have to add scale_alpha_identity() to use the alpha
 # values in your dataset!
 ggplot(df, aes(x = a, y = b)) +
-  geom_nba_badges(aes(team_abbr = teams, alpha = alpha), width = 0.075) +
+  geom_futebol_badges(aes(team_abbr = teams, alpha = alpha), width = 0.075) +
   geom_label(aes(label = teams), nudge_y = -0.35, alpha = 0.5) +
   scale_alpha_identity() +
   theme_void()
@@ -134,7 +134,7 @@ ggplot(df, aes(x = a, y = b)) +
 # please note that you have to add scale_alpha_identity() as well as
 # scale_color_identity() to use the alpha and colour values in your dataset!
 ggplot(df, aes(x = a, y = b)) +
-  geom_nba_badges(aes(team_abbr = teams, alpha = alpha, colour = colour), width = 0.075) +
+  geom_futebol_badges(aes(team_abbr = teams, alpha = alpha, colour = colour), width = 0.075) +
   geom_label(aes(label = teams), nudge_y = -0.35, alpha = 0.5) +
   scale_alpha_identity() +
   scale_color_identity() +
@@ -142,7 +142,7 @@ ggplot(df, aes(x = a, y = b)) +
 
 # apply alpha as constant for all badges
 ggplot(df, aes(x = a, y = b)) +
-  geom_nba_badges(aes(team_abbr = teams), width = 0.075, alpha = 0.6) +
+  geom_futebol_badges(aes(team_abbr = teams), width = 0.075, alpha = 0.6) +
   geom_label(aes(label = teams), nudge_y = -0.35, alpha = 0.5) +
   theme_void()
 

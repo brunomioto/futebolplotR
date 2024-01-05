@@ -24,9 +24,8 @@
 #' library(futebolplotR)
 #' library(ggplot2)
 #'
-#' ######## NBA ########
 #'
-#' team_abbr <- valid_team_names("NBA")
+#' team_abbr <- valid_team_names()
 #'
 #' df <- data.frame(
 #'   random_value = runif(length(team_abbr), 0, 1),
@@ -34,8 +33,8 @@
 #' )
 #' ggplot(df, aes(x = teams, y = random_value)) +
 #'   geom_col(aes(color = teams, fill = teams), width = 0.5) +
-#'   scale_color_nba(type = "secondary") +
-#'   scale_fill_nba(alpha = 0.4) +
+#'   scale_color_futebol(type = "secondary") +
+#'   scale_fill_futebol(alpha = 0.4) +
 #'   theme_minimal() +
 #'   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 #' }
