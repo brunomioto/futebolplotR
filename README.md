@@ -12,28 +12,25 @@ status](https://www.r-pkg.org/badges/version/futebolplotR)](https://CRAN.R-proje
 
 <!-- badges: end -->
 
-The code for this package was copied **heavily** from
+The code for this package was **heavily** based on
 [nbaplotR](https://mrcaseb.github.io/nbaplotR/) with minor changes to
 support Brazilian soccer team badges.
 
-The goal of futebolplotR is to provide functions and geoms that help
-visualization of Brazilian soccer related analysis. It provides a
+The goal of **futebolplotR** is to provide functions and geoms that help
+visualization of **Brazilian soccer** related analysis. It provides a
 ggplot2 geom that does the heavy lifting of plotting brazilian soccer
-logos in high quality, with correct aspect ratio and possible
+badges in high quality, with correct aspect ratio and possible
 transparency.
 
-The FutebolplotR contains logos of the teams participating in the
+The **futebolplotR** contains badges of the teams participating in the
 Brasileirão Série A football league from 2003 to the nowadays.
+
+This package can be used with data from
+[brasileirao](https://github.com/williamorim/brasileirao) R package.
 
 ## Installation
 
-<!-- The easiest way to get futeboplotR is to install it from [CRAN](https://cran.r-project.org/package=nbaplotR) with: -->
-<!-- ``` r -->
-<!-- install.packages("nbaplotR") -->
-<!-- ``` -->
-
-To get a bug fix or to use a feature from the development version, you
-can install the development version of futebolplotR either from
+You can install the development version of futebolplotR from
 [GitHub](https://github.com/brunomioto/futebolplotR/) with:
 
 ``` r
@@ -43,19 +40,19 @@ pak::pak("brunomioto/futebolplotR")
 
 ## Using futebolplotR
 
-The key function in the package is geom_futebol_logos() which will add
-Brazilian soccer team logos to a ggplot. Here you can see all the
-current available teams to plot.
+The key function in the package is `geom_futebol_badges()` which will
+add Brazilian soccer team badges to a ggplot. Here you can see all the
+current available teams (currently 43) to plot.
 
 ``` r
-#library(futebolplotR)
+library(futebolplotR)
 library(ggplot2)
 
 team <- valid_team_names()
 
 df <- data.frame(
-  a = c(rep(1:5, 8),c(1,2,3)),
-  b = sort(c(rep(1:8, 5), c(0,0,0)), decreasing = TRUE),
+  a = c(rep(1:5, 8),c(1,2,3,4)),
+  b = sort(c(rep(1:8, 5), c(0,0,0,0)), decreasing = TRUE),
   teams = team
 )
 
