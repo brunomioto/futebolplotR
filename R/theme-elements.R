@@ -4,9 +4,9 @@
 #' In conjunction with the [ggplot2::theme] system, the following `element_`
 #' functions enable images in non-data components of the plot, e.g. axis text.
 #'
-#'   - `element_futebol_badge()`: draws NBA team badges instead of their abbreviations.
+#'   - `element_futebol_badge()`: draws Brazilian Soccer team badges instead of their abbreviations.
 #'
-#' @details The elements translate NBA/WNBA team abbreviations into badge images.
+#' @details The elements translate Brazilian Soccer team abbreviations into badge images.
 #' @inheritParams ggpath::element_path
 #'
 #' @seealso [geom_futebol_badges()], and [ggpath::element_path()]
