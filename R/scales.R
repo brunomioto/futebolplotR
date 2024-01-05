@@ -1,4 +1,4 @@
-#' Scales for NBA & WNBA Team Colors
+#' Scales for Brazilian Soccer Team Colors
 #'
 #' @description These functions map soccer team names to their team colors in
 #'   color and fill aesthetics
