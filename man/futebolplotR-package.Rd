@@ -19,6 +19,7 @@ A set of functions to visualize Brazilian Soccer analysis in 'ggplot2'.
 Useful links:
 \itemize{
   \item \url{https://github.com/brunomioto/futebolplotR}
+  \item \url{https://brunomioto.github.io/futebolplotR/}
   \item Report bugs at \url{https://github.com/brunomioto/futebolplotR/issues}
 }
 
