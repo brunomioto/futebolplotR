@@ -9,7 +9,7 @@ Authors@R:
       person(given = "Gabriela",
              family = "Junqueira",
              role = "aut",
-             email = "mg.junqueira@hotmail.com""))
+             email = "mg.junqueira@hotmail.com"))
 Description: A set of functions to visualize Brazilian Soccer
     analysis in 'ggplot2'.
 License: MIT + file LICENSE
