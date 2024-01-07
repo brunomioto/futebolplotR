@@ -37,8 +37,9 @@ library(brasileirao)
 
 
 ```{r}
-
 team <- futebolplotR::valid_team_names()
+
+data("matches")
 
 season_2023 <- dplyr::filter(matches, season == 2023)
 season_2023 <- brasileirao::add_variables(season_2023)
@@ -64,14 +65,17 @@ season_2023_away <- season_2023 %>%
     rename(fc = away)
 
 
-df_teams <- left_join(season_2023_home, season_2023_away, by = "fc")
-
+df_teams <- left_join(season_2023_home, season_2023_away, by = "fc") %>%
+    group_by(fc) %>%
+    mutate(goals_concede = sum(goal_concede_home, goal_concede_away)) %>%
+    mutate(goals_scored = sum(goal_scored_home, goal_scored_away)) %>%
+    mutate(goals_difference = goals_scored - goals_concede) %>%
+    ungroup()
 ```
 
 #> fazer uma intro
 
 ```{r}
-
 ggplot2::ggplot(df_teams, aes(x = total_home_points, y = total_away_points)) +
   futebolplotR::geom_futebol_badges(aes(team_abbr = home_abbr), width = 0.064, alpha = 0.8) +
   ggplot2::labs(
@@ -86,10 +90,45 @@ ggplot2::ggplot(df_teams, aes(x = total_home_points, y = total_away_points)) +
     plot.title.position = "plot"
   ) +
   coord_fixed()
-
 ```
 
+```{r}
+ggplot2::ggplot(df_teams, aes(y = goals_scored, x = home_abbr)) +
+  ggplot2::geom_col(aes(color = home_abbr, fill = home_abbr), width = 0.5) +
+  futebolplotR::scale_color_futebol(type = "secondary") +
+  futebolplotR::scale_fill_futebol(alpha = 0.4) +
+  ggplot2::labs(
+    title = "Campeonato Brasileiro 2023",
+    y = "Gols Scored",
+    caption = "Data: @brasileirao"
+  ) +
+  ggplot2::theme_minimal() +
+  ggplot2::theme(
+    plot.title = ggplot2::element_text(face = "bold"),
+    plot.title.position = "plot",
+    axis.title.x = ggplot2::element_blank(),
+    #axis.text.x = futebolplotR::element_futebol_logo(size = 1)
+  )
+```
 
+```{r}
+ggplot2::ggplot(df_teams, aes(x = home_abbr, y = goals_difference)) +
+  ggplot2::geom_col(aes(color = home_abbr, fill = home_abbr), width = 0.5) +
+  futebolplotR::scale_color_futebol(type = "secondary") +
+  futebolplotR::scale_fill_futebol(alpha = 0.4) +
+  ggplot2::labs(
+    title = "Compeonato Brasileiro 2023",
+    y = "Goals difference"
+  ) +
+  ggplot2::theme_minimal() +
+  ggplot2::theme(
+    plot.title = ggplot2::element_text(face = "bold"),
+    plot.title.position = "plot",
+    axis.title.x = ggplot2::element_blank(),
+    #this line triggers the replacement of team abbreviations with logos
+    #axis.text.x = nflplotR::element_nfl_logo(size = 1)
+  )
+```
 
 
 
