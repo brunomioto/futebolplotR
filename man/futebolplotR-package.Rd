@@ -5,7 +5,7 @@
 \alias{futebolplotR}
 \alias{futebolplotR-package}
 \alias{GeomFUTbadge}
-\title{futebolplotR: Brazilian Soccer Logo Plots in 'ggplot2'}
+\title{futebolplotR: Brazilian Soccer Badges Plots in 'ggplot2'}
 \format{
 An object of class \code{GeomFUTbadge} (inherits from \code{Geom}, \code{ggproto}, \code{gg}) of length 5.
 }
@@ -29,7 +29,7 @@ Useful links:
 
 Authors:
 \itemize{
-  \item Gabriela Junqueira
+  \item Gabriela Junqueira \email{mg.junqueira@hotmail.com}
 }
 
 }

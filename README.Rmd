@@ -47,7 +47,7 @@ The key function in the package is `geom_futebol_badges()` which will add Brazil
 library(futebolplotR)
 library(ggplot2)
 
-team <- valid_team_names()
+team <- futebolplotR::valid_team_names()
 
 df <- data.frame(
   a = c(rep(1:5, 8),c(1,2,3,4)),

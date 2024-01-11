@@ -12,9 +12,11 @@ valid_team_names <- function(){
   n <- sort(unique(map))
   #n
   teams <- list.files("inst")
-  teams <- teams[ !teams == "team.svg"]
+  teams <- teams[!teams == "team.svg"]
   badge_teams <- gsub('.svg', '', teams)
-  n[n %in% badge_teams]
+  valid_names <- n[n %in% badge_teams]
+
+  return(valid_names)
 }
 
 
