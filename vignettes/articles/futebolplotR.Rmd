@@ -28,7 +28,12 @@ if (!require("pak")) install.packages("pak")
 pak::pak("brunomioto/futebolplotR")
 ```
 
-<!-- # fazer uma intro -->
+# Common usage
+
+
+Let's explore a few standard scenarios for utilizing `FutebolplotR`.
+Initially, we load the essencial packages.
+
 
 ```{r setup, message=FALSE, warning=FALSE}
 library(futebolplotR)
@@ -37,12 +42,13 @@ library(dplyr)
 library(brasileirao)
 ```
 
-<!-- # fazer uma intro -->
+We will load the data for the Campeonato Brasileiro and explore the database.
+We will select the 2023 season of the Campeonato Brasileiro
 
 
 ```{r}
-season_2023 <- brasileirao::matches %>% 
-  dplyr::filter(season == 2023) %>% 
+season_2023 <- brasileirao::matches %>%
+  dplyr::filter(season == 2023) %>%
   brasileirao::add_variables()
 
 season_2023_home <- season_2023 %>%
@@ -66,7 +72,7 @@ season_2023_away <- season_2023 %>%
     rename(fc = away)
 
 
-df_teams <- season_2023_home %>% 
+df_teams <- season_2023_home %>%
     left_join(season_2023_away, by = "fc") %>%
     group_by(fc) %>%
     mutate(goals_concede = sum(goal_concede_home, goal_concede_away),
@@ -75,12 +81,13 @@ df_teams <- season_2023_home %>%
     ungroup()
 ```
 
-<!-- # fazer uma intro -->
+Firstly, we will visualize the points earned at home and away for each team.
+This will be done to demonstrate how we can use the team badges.
 
 ```{r}
 ggplot(df_teams, aes(x = total_home_points, y = total_away_points)) +
   geom_abline(color = "grey30")+
-  futebolplotR::geom_futebol_badges(aes(team_abbr = home_abbr), 
+  futebolplotR::geom_futebol_badges(aes(team_abbr = home_abbr),
                                     width = 0.064, alpha = 0.8) +
   labs(
     x = "Points home",
@@ -98,11 +105,13 @@ ggplot(df_teams, aes(x = total_home_points, y = total_away_points)) +
     ylim = c(5,45)
   )
 ```
+Now, we will demonstrate how we can incorporate each team's specific colors into the shapes (in this case, the bars of the graph)
+and how we can use the team badges as axis labels.
 
 ```{r}
-ggplot(df_teams, aes(x = reorder(home_abbr, -goals_scored), 
+ggplot(df_teams, aes(x = reorder(home_abbr, -goals_scored),
                               y = goals_scored)) +
-  geom_col(aes(color = home_abbr, fill = home_abbr), 
+  geom_col(aes(color = home_abbr, fill = home_abbr),
            width = 0.5) +
   futebolplotR::scale_color_futebol(type = "secondary") +
   futebolplotR::scale_fill_futebol(type = "primary") +
@@ -124,7 +133,7 @@ ggplot(df_teams, aes(x = reorder(home_abbr, -goals_scored),
 ```{r}
 ggplot(df_teams, aes(x = reorder(home_abbr, -goals_difference),
                               y = goals_difference)) +
-  geom_col(aes(color = home_abbr, fill = home_abbr), 
+  geom_col(aes(color = home_abbr, fill = home_abbr),
            width = 0.5) +
   futebolplotR::scale_color_futebol(type = "secondary") +
   futebolplotR::scale_fill_futebol(type = "primary") +
