@@ -1,5 +1,5 @@
 ---
-title: "Get Started with FutebolplotR"
+title: "Get Started with futebolplotR"
 description:
 author: "Bruno Mioto & Gabriela Junqueira"
 output: rmarkdown::html_vignette
@@ -32,9 +32,9 @@ pak::pak("brunomioto/futebolplotR")
 
 ```{r setup}
 library(futebolplotR)
-# library(ggplot2)
-# library(dplyr)
-library(tidyverse)
+library(ggplot2)
+library(dplyr)
+# library(tidyverse)
 library(brasileirao)
 ```
 
@@ -81,56 +81,62 @@ df_teams <- left_join(season_2023_home, season_2023_away, by = "fc") %>%
 #> fazer uma intro
 
 ```{r}
-ggplot2::ggplot(df_teams, aes(x = total_home_points, y = total_away_points)) +
+ggplot(df_teams, aes(x = total_home_points, y = total_away_points)) +
+  geom_abline()+
   futebolplotR::geom_futebol_badges(aes(team_abbr = home_abbr), width = 0.064, alpha = 0.8) +
-  ggplot2::labs(
+  labs(
     x = "Points home",
     y = "Points away",
     caption = "Data: @brasileirao",
     title = "Campeonato Brasileiro 2023"
   ) +
-  ggplot2::theme_minimal() +
-  ggplot2::theme(
+  theme_minimal() +
+  theme(
     plot.title = element_text(face = "bold"),
     plot.title.position = "plot"
   ) +
-  coord_fixed()
-```
-
-```{r}
-ggplot2::ggplot(df_teams, aes(y = goals_scored, x = home_abbr)) +
-  ggplot2::geom_col(aes(color = home_abbr, fill = home_abbr), width = 0.5) +
-  futebolplotR::scale_color_futebol(type = "secondary") +
-  futebolplotR::scale_fill_futebol() +
-  ggplot2::labs(
-    title = "Campeonato Brasileiro 2023",
-    y = "Goals Scored",
-    caption = "Data: @brasileirao"
-  ) +
-  ggplot2::theme_minimal() +
-  ggplot2::theme(
-    plot.title = ggplot2::element_text(face = "bold"),
-    plot.title.position = "plot",
-    axis.title.x = ggplot2::element_blank(),
-    axis.text.x = futebolplotR::element_futebol_badge(size = 1)
+  coord_fixed(
+    xlim = c(5,45),
+    ylim = c(5,45)
   )
 ```
 
 ```{r}
-ggplot2::ggplot(df_teams, aes(x = home_abbr, y = goals_difference)) +
-  ggplot2::geom_col(aes(color = home_abbr, fill = home_abbr), width = 0.5) +
+ggplot(df_teams, aes(x = reorder(home_abbr,goals_scored), 
+                              y = goals_scored)) +
+  geom_col(aes(color = home_abbr, fill = home_abbr), width = 0.5) +
   futebolplotR::scale_color_futebol(type = "secondary") +
   futebolplotR::scale_fill_futebol() +
-  ggplot2::labs(
+  labs(
+    title = "Campeonato Brasileiro 2023",
+    y = "Goals Scored",
+    caption = "Data: @brasileirao"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold"),
+    plot.title.position = "plot",
+    axis.title.x = element_blank(),
+    axis.text.x = futebolplotR::element_futebol_badge(size = 0.8)
+  )
+```
+
+```{r}
+ggplot(df_teams, aes(x = reorder(home_abbr,goals_difference),
+                              y = goals_difference)) +
+  geom_col(aes(color = home_abbr, fill = home_abbr), width = 0.5) +
+  futebolplotR::scale_color_futebol(type = "secondary") +
+  futebolplotR::scale_fill_futebol() +
+  labs(
     title = "Compeonato Brasileiro 2023",
     y = "Goals difference"
   ) +
-  ggplot2::theme_minimal() +
-  ggplot2::theme(
-    plot.title = ggplot2::element_text(face = "bold"),
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold"),
     plot.title.position = "plot",
-    axis.title.x = ggplot2::element_blank(),
+    axis.title.x = element_blank(),
     #this line triggers the replacement of team abbreviations with logos
-    axis.text.x = futebolplotR::element_futebol_badge(size = 1)
+    axis.text.x = futebolplotR::element_futebol_badge(size = 0.8)
   )
 ```

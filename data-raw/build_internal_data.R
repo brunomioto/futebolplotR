@@ -21,17 +21,17 @@
 #   download.file(url, file.path("inst", paste0(abbr, ".svg")), mode = 'wb')
 # })
 #
-futebol_primary_colors <- teams_colors_badges$color1 %>%
-  rlang::set_names(teams_colors_badges$abbr)
+# futebol_primary_colors <- teams_colors_badges$color1 %>%
+#   rlang::set_names(teams_colors_badges$abbr)
 #
-futebol_secondary_colors <- teams_colors_badges$color2  %>%
-  rlang::set_names(teams_colors_badges$abbr)
+# futebol_secondary_colors <- teams_colors_badges$color2  %>%
+#   rlang::set_names(teams_colors_badges$abbr)
 
 # Write Data --------------------------------------------------------------
 
-usethis::use_data(
-  teams_colors_badges,
-  futebol_primary_colors,
-  futebol_secondary_colors,
-  internal = TRUE, overwrite = TRUE
-)
+# usethis::use_data(
+#   teams_colors_badges,
+#   futebol_primary_colors,
+#   futebol_secondary_colors,
+#   internal = TRUE, overwrite = TRUE
+# )
