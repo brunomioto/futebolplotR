@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-#> fazer uma intro
+<!-- # fazer uma intro -->
 
 # Install the Package
 
@@ -28,32 +28,28 @@ if (!require("pak")) install.packages("pak")
 pak::pak("brunomioto/futebolplotR")
 ```
 
-#> fazer uma intro
+<!-- # fazer uma intro -->
 
-```{r setup}
+```{r setup, message=FALSE, warning=FALSE}
 library(futebolplotR)
 library(ggplot2)
 library(dplyr)
-# library(tidyverse)
 library(brasileirao)
 ```
 
-#> fazer uma intro
+<!-- # fazer uma intro -->
 
 
 ```{r}
-# team <- futebolplotR::valid_team_names()
-
-# data("matches")
-matches_br <- brasileirao::matches
-season_2023 <- dplyr::filter(matches_br, season == 2023)
-season_2023 <- brasileirao::add_variables(season_2023)
+season_2023 <- brasileirao::matches %>% 
+  dplyr::filter(season == 2023) %>% 
+  brasileirao::add_variables()
 
 season_2023_home <- season_2023 %>%
     group_by(home) %>%
-    mutate(total_home_points = sum(home_points)) %>%
-    mutate(goal_concede_home = sum(as.numeric(away_score))) %>%
-    mutate(goal_scored_home = sum(as.numeric(home_score))) %>%
+    mutate(total_home_points = sum(home_points),
+           goal_concede_home = sum(as.numeric(away_score)),
+           goal_scored_home = sum(as.numeric(home_score))) %>%
     ungroup() %>%
     slice(1:20) %>%
     select(home, home_abbr, total_home_points, goal_concede_home, goal_scored_home) %>%
@@ -61,29 +57,31 @@ season_2023_home <- season_2023 %>%
 
 season_2023_away <- season_2023 %>%
     group_by(away) %>%
-    mutate(total_away_points = sum(away_points)) %>%
-    mutate(goal_concede_away = sum(as.numeric(home_score))) %>%
-    mutate(goal_scored_away = sum(as.numeric(away_score))) %>%
+    mutate(total_away_points = sum(away_points),
+           goal_concede_away = sum(as.numeric(home_score)),
+           goal_scored_away = sum(as.numeric(away_score))) %>%
     ungroup() %>%
     slice(1:20) %>%
     select(away, total_away_points, goal_concede_away, goal_scored_away) %>%
     rename(fc = away)
 
 
-df_teams <- left_join(season_2023_home, season_2023_away, by = "fc") %>%
+df_teams <- season_2023_home %>% 
+    left_join(season_2023_away, by = "fc") %>%
     group_by(fc) %>%
-    mutate(goals_concede = sum(goal_concede_home, goal_concede_away)) %>%
-    mutate(goals_scored = sum(goal_scored_home, goal_scored_away)) %>%
-    mutate(goals_difference = goals_scored - goals_concede) %>%
+    mutate(goals_concede = sum(goal_concede_home, goal_concede_away),
+           goals_scored = sum(goal_scored_home, goal_scored_away),
+           goals_difference = goals_scored - goals_concede) %>%
     ungroup()
 ```
 
-#> fazer uma intro
+<!-- # fazer uma intro -->
 
 ```{r}
 ggplot(df_teams, aes(x = total_home_points, y = total_away_points)) +
-  geom_abline()+
-  futebolplotR::geom_futebol_badges(aes(team_abbr = home_abbr), width = 0.064, alpha = 0.8) +
+  geom_abline(color = "grey30")+
+  futebolplotR::geom_futebol_badges(aes(team_abbr = home_abbr), 
+                                    width = 0.064, alpha = 0.8) +
   labs(
     x = "Points home",
     y = "Points away",
@@ -102,11 +100,12 @@ ggplot(df_teams, aes(x = total_home_points, y = total_away_points)) +
 ```
 
 ```{r}
-ggplot(df_teams, aes(x = reorder(home_abbr,goals_scored), 
+ggplot(df_teams, aes(x = reorder(home_abbr, -goals_scored), 
                               y = goals_scored)) +
-  geom_col(aes(color = home_abbr, fill = home_abbr), width = 0.5) +
+  geom_col(aes(color = home_abbr, fill = home_abbr), 
+           width = 0.5) +
   futebolplotR::scale_color_futebol(type = "secondary") +
-  futebolplotR::scale_fill_futebol() +
+  futebolplotR::scale_fill_futebol(type = "primary") +
   labs(
     title = "Campeonato Brasileiro 2023",
     y = "Goals Scored",
@@ -117,16 +116,18 @@ ggplot(df_teams, aes(x = reorder(home_abbr,goals_scored),
     plot.title = element_text(face = "bold"),
     plot.title.position = "plot",
     axis.title.x = element_blank(),
+    #this line triggers the replacement of team abbreviations with logos
     axis.text.x = futebolplotR::element_futebol_badge(size = 0.8)
   )
 ```
 
 ```{r}
-ggplot(df_teams, aes(x = reorder(home_abbr,goals_difference),
+ggplot(df_teams, aes(x = reorder(home_abbr, -goals_difference),
                               y = goals_difference)) +
-  geom_col(aes(color = home_abbr, fill = home_abbr), width = 0.5) +
+  geom_col(aes(color = home_abbr, fill = home_abbr), 
+           width = 0.5) +
   futebolplotR::scale_color_futebol(type = "secondary") +
-  futebolplotR::scale_fill_futebol() +
+  futebolplotR::scale_fill_futebol(type = "primary") +
   labs(
     title = "Compeonato Brasileiro 2023",
     y = "Goals difference"
