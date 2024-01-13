@@ -16,6 +16,7 @@ License: MIT + file LICENSE
 Depends: 
     R (>= 3.6)
 Imports: 
+    brasileirao,
     cli (>= 3.0.0),
     dplyr,
     ggpath (>= 1.0.0),
@@ -23,6 +24,8 @@ Imports:
     grid,
     rlang (>= 0.4.11),
     scales (>= 1.1.0)
+Remotes: 
+    williamorim/brasileirao
 Suggests: 
     testthat (>= 3.0.0),
     vdiffr
