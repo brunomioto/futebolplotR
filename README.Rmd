@@ -21,6 +21,8 @@ knitr::opts_chunk$set(
 
 <!-- badges: end -->
 
+<img src="man/figures/logo_futebolplorR.png" alt="package logo with a badges that forms the brazil map" width="250px" align="right"/>
+
 The code for this package was **heavily** based on [nbaplotR](https://mrcaseb.github.io/nbaplotR/) with minor changes to support Brazilian soccer team badges.
 
 The goal of **futebolplotR** is to provide functions and geoms that help visualization of **Brazilian soccer** related analysis. It provides a ggplot2 geom that does the heavy lifting of plotting brazilian soccer badges in high quality, with correct aspect ratio and possible transparency.
