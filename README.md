@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# **futebolplotR** <a href="https://brunomioto.github.io/futebolplotR/"><img src="man/figures/logo_futebolplorR.png" align="right" height="139" alt="futebolplotR website" /></a>
+# **futebolplotR** <a href="https://brunomioto.github.io/futebolplotR/"><img src="man/figures/logo.png" align="right" height="139" alt="futebolplotR website" /></a>
 
 <!-- badges: start -->
 
