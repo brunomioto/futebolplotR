@@ -71,16 +71,17 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header">
-<img src="logo.png" class="logo" alt=""><h1 id="futebolplotr">futebolplotR<a class="anchor" aria-label="anchor" href="#futebolplotr"></a>
+<img src="logo.png" class="logo" alt=""><h1 id="futebolplotr-">
+<strong>futebolplotR</strong> <a class="anchor" aria-label="anchor" href="#futebolplotr-"></a>
 </h1>
 </div>
 <!-- badges: start -->
 
 <!-- badges: end -->
-<p>The code for this package was <strong>heavily</strong> based on <a href="https://mrcaseb.github.io/nbaplotR/" class="external-link">nbaplotR</a> with minor changes to support Brazilian soccer team badges.</p>
-<p>The goal of <strong>futebolplotR</strong> is to provide functions and geoms that help visualization of <strong>Brazilian soccer</strong> related analysis. It provides a ggplot2 geom that does the heavy lifting of plotting brazilian soccer badges in high quality, with correct aspect ratio and possible transparency.</p>
-<p>The <strong>futebolplotR</strong> contains badges of the teams participating in the Brasileirão Série A football league from 2003 to the nowadays.</p>
+<p>The goal of <strong>futebolplotR</strong> is to provide functions and geoms that help creating visualization of <strong>Brazilian soccer</strong> related analysis. It provides a ggplot2 geom that does the heavy lifting of plotting Brazilian soccer badges in high quality, with correct aspect ratio and possible transparency.</p>
+<p>The <strong>futebolplotR</strong> contains emblems of the teams that have participated in the Brasileirão Série A soccer league from 2003 to the present day. Other teams are also welcome!</p>
 <p>This package can be used with data from <a href="https://github.com/williamorim/brasileirao" class="external-link">brasileirao</a> R package.</p>
+<p>The code for this package was <strong>heavily</strong> based on <a href="https://mrcaseb.github.io/nbaplotR/" class="external-link">nbaplotR</a> with minor changes to support Brazilian soccer team badges.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -92,12 +93,12 @@
 <div class="section level2">
 <h2 id="using-futebolplotr">Using futebolplotR<a class="anchor" aria-label="anchor" href="#using-futebolplotr"></a>
 </h2>
-<p>The key function in the package is <code><a href="reference/geom_futebol_badges.html">geom_futebol_badges()</a></code> which will add Brazilian soccer team badges to a ggplot. Here you can see all the current available teams (currently 43) to plot.</p>
+<p>The key function in the package is <code><a href="reference/geom_futebol_badges.html">geom_futebol_badges()</a></code> which will add Brazilian soccer team badges to a ggplot. Here you can see all the current available teams (currently 44) to plot.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/brunomioto/futebolplotR" class="external-link">futebolplotR</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">team</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/valid_team_names.html">valid_team_names</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">team</span> <span class="op">&lt;-</span> <span class="fu">futebolplotR</span><span class="fu">::</span><span class="fu"><a href="reference/valid_team_names.html">valid_team_names</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  a <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">8</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span>,</span>
