@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# **futebolplotR** <img src="man/figures/logo.png" align="right" width="25%" min-width="120px"/>
+# **futebolplotR** <a href="https://brunomioto.github.io/futebolplotR/"><img src="man/figures/logo_futebolplorR.png" align="right" height="139" alt="futebolplotR website" /></a>
 
 <!-- badges: start -->
 
@@ -61,7 +61,7 @@ ggplot(df, aes(x = a, y = b)) +
   geom_futebol_badges(aes(team_abbr = teams), width = 0.1) +
   geom_label(aes(label = teams,
                  color = teams,
-                 fill = teams), 
+                 fill = teams),
              nudge_y = -0.35)+
   scale_color_futebol(type = "secondary")+
   scale_fill_futebol(type = "primary")+
