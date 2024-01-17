@@ -84,7 +84,7 @@ df_teams <- season_2023_home %>%
 Firstly, we will visualize the points earned at home and away for each team.
 This will be done to demonstrate how we can use the team badges.
 
-```{r}
+```{r, fig.fullwidth=TRUE}
 ggplot(df_teams, aes(x = total_home_points, y = total_away_points)) +
   geom_abline(color = "grey30")+
   futebolplotR::geom_futebol_badges(aes(team_abbr = home_abbr),
@@ -105,14 +105,14 @@ ggplot(df_teams, aes(x = total_home_points, y = total_away_points)) +
     ylim = c(5,45)
   )
 ```
-Now, we will demonstrate how we can incorporate each team's specific colors into the shapes (in this case, the bars of the graph)
-and how we can use the team badges as axis labels.
+
+Now, we will demonstrate how we can incorporate each team's specific colors into the shapes (in this case, the bars of the graph) and how we can use the team badges as axis labels.
 
 ```{r}
 ggplot(df_teams, aes(x = reorder(home_abbr, -goals_scored),
                               y = goals_scored)) +
   geom_col(aes(color = home_abbr, fill = home_abbr),
-           width = 0.5) +
+           width = 0.6) +
   futebolplotR::scale_color_futebol(type = "secondary") +
   futebolplotR::scale_fill_futebol(type = "primary") +
   labs(
@@ -134,12 +134,13 @@ ggplot(df_teams, aes(x = reorder(home_abbr, -goals_scored),
 ggplot(df_teams, aes(x = reorder(home_abbr, -goals_difference),
                               y = goals_difference)) +
   geom_col(aes(color = home_abbr, fill = home_abbr),
-           width = 0.5) +
+           width = 0.6) +
   futebolplotR::scale_color_futebol(type = "secondary") +
   futebolplotR::scale_fill_futebol(type = "primary") +
   labs(
     title = "Compeonato Brasileiro 2023",
-    y = "Goals difference"
+    y = "Goals difference",
+    caption = "Data: @brasileirao"
   ) +
   theme_minimal() +
   theme(
