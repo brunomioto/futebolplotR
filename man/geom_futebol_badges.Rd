@@ -75,7 +75,7 @@ team abbreviation. The latter can be checked with \code{\link[=valid_team_names]
 }
 \section{Aesthetics}{
 
-\code{geom_nba_badges()} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_futebol_badges()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item{\strong{x}}{ - The x-coordinate.}
 \item{\strong{y}}{ - The y-coordinate.}

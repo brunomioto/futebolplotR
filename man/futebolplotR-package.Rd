@@ -13,6 +13,8 @@ An object of class \code{GeomFUTbadge} (inherits from \code{Geom}, \code{ggproto
 GeomFUTbadge
 }
 \description{
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
 A set of functions to visualize Brazilian Soccer analysis in 'ggplot2'.
 }
 \seealso{

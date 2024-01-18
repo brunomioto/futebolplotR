@@ -10,13 +10,12 @@
 valid_team_names <- function(){
   map <- futebolplotR::futebol_team_abbr_mapping
   n <- sort(unique(map))
-  #n
+  n
   #teams <- list.files("inst")
   #teams <- teams[!teams == "team.svg"]
   #badge_teams <- gsub('.svg', '', teams)
   #valid_names <- n[n %in% badge_teams]
-
-  return(valid_names)
+  # return(valid_names)
 }
 
 

@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 
 # Install the Package
 
-The easiest way to get `FutebolplotR` is to install it from with:
+The easiest way to get `futebolplotR` is to install it from with:
 
 ```{r eval = FALSE}
 if (!require("pak")) install.packages("pak")
@@ -30,8 +30,7 @@ pak::pak("brunomioto/futebolplotR")
 
 # Common usage
 
-
-Let's explore a few standard scenarios for utilizing `FutebolplotR`.
+Let's explore a few standard scenarios for utilizing `futebolplotR`.
 Initially, we load the essencial packages.
 
 
@@ -81,6 +80,8 @@ df_teams <- season_2023_home %>%
     ungroup()
 ```
 
+## Badges in Scatter Plots
+
 Firstly, we will visualize the points earned at home and away for each team.
 This will be done to demonstrate how we can use the team badges.
 
@@ -105,6 +106,8 @@ ggplot(df_teams, aes(x = total_home_points, y = total_away_points)) +
     ylim = c(5,45)
   )
 ```
+
+## Team Colors and Badges as Axis Labels
 
 Now, we will demonstrate how we can incorporate each team's specific colors into the shapes (in this case, the bars of the graph) and how we can use the team badges as axis labels.
 
