@@ -116,8 +116,6 @@ GeomFUTbadge <- ggplot2::ggproto(
   ),
   draw_panel = function(data, panel_params, coord, na.rm = FALSE) {
 
-    # league <- match.arg(league)
-
     team_abbr <- clean_team_abbrs(as.character(data$team_abbr), keep_non_matches = FALSE)
 
     data$path <- badge_from_abbr(team_abbr)
