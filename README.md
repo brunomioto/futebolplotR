@@ -73,3 +73,15 @@ ggplot(df, aes(x = a, y = b)) +
 ```
 
 <img src="man/figures/README-plot-1.png" width="100%" />
+
+For more information on using the package, check out our [**Getting
+Started**](https://brunomioto.github.io/futebolplotR/articles/futebolplotR.html)
+article
+
+# Credits
+
+This package was created by [Bruno Mioto](https://github.com/brunomioto)
+and [Gabriela Junqueira](https://github.com/junqueiragaabi). We thank
+[Sebastian Carl](https://github.com/mrcaseb) for creating the nflplotR
+and nbaplotR packages, which were fundamental to the development of
+futebolplotR.
