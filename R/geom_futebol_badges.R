@@ -6,7 +6,7 @@
 #'
 #' @inheritParams ggplot2::geom_point
 #' @section Aesthetics:
-#' `geom_nba_badges()` understands the following aesthetics (required aesthetics are in bold):
+#' `geom_futebol_badges()` understands the following aesthetics (required aesthetics are in bold):
 #' \itemize{
 #'   \item{**x**}{ - The x-coordinate.}
 #'   \item{**y**}{ - The y-coordinate.}
