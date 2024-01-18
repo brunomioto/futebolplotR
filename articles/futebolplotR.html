@@ -87,7 +87,7 @@
 <div class="section level2">
 <h2 id="install-the-package">Install the Package<a class="anchor" aria-label="anchor" href="#install-the-package"></a>
 </h2>
-<p>The easiest way to get <code>FutebolplotR</code> is to install it
+<p>The easiest way to get <code>futebolplotR</code> is to install it
 from with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://pak.r-lib.org/" class="external-link">"pak"</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"pak"</span><span class="op">)</span></span>
@@ -97,7 +97,7 @@ from with:</p>
 <h2 id="common-usage">Common usage<a class="anchor" aria-label="anchor" href="#common-usage"></a>
 </h2>
 <p>Let’s explore a few standard scenarios for utilizing
-<code>FutebolplotR</code>. Initially, we load the essencial
+<code>futebolplotR</code>. Initially, we load the essencial
 packages.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/brunomioto/futebolplotR" class="external-link">futebolplotR</a></span><span class="op">)</span></span>
@@ -140,6 +140,9 @@ Brasileiro</p>
 <span>           goals_scored <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">goal_scored_home</span>, <span class="va">goal_scored_away</span><span class="op">)</span>,</span>
 <span>           goals_difference <span class="op">=</span> <span class="va">goals_scored</span> <span class="op">-</span> <span class="va">goals_concede</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="badges-in-scatter-plots">Badges in Scatter Plots<a class="anchor" aria-label="anchor" href="#badges-in-scatter-plots"></a>
+</h3>
 <p>Firstly, we will visualize the points earned at home and away for
 each team. This will be done to demonstrate how we can use the team
 badges.</p>
@@ -164,6 +167,10 @@ badges.</p>
 <span>    ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">45</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="futebolplotR_files/figure-html/unnamed-chunk-4-1.png" width="100%"></p>
+</div>
+<div class="section level3">
+<h3 id="team-colors-and-badges-as-axis-labels">Team Colors and Badges as Axis Labels<a class="anchor" aria-label="anchor" href="#team-colors-and-badges-as-axis-labels"></a>
+</h3>
 <p>Now, we will demonstrate how we can incorporate each team’s specific
 colors into the shapes (in this case, the bars of the graph) and how we
 can use the team badges as axis labels.</p>
@@ -209,6 +216,7 @@ can use the team badges as axis labels.</p>
 <span>    axis.text.x <span class="op">=</span> <span class="fu">futebolplotR</span><span class="fu">::</span><span class="fu"><a href="../reference/element.html">element_futebol_badge</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="futebolplotR_files/figure-html/unnamed-chunk-6-1.png" width="100%"></p>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
