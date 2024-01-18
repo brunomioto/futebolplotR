@@ -141,7 +141,7 @@ ggplot(df_teams, aes(x = reorder(home_abbr, -goals_difference),
   futebolplotR::scale_color_futebol(type = "secondary") +
   futebolplotR::scale_fill_futebol(type = "primary") +
   labs(
-    title = "Compeonato Brasileiro 2023",
+    title = "Campeonato Brasileiro 2023",
     y = "Goals difference",
     caption = "Data: @brasileirao"
   ) +
