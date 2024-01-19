@@ -4,6 +4,12 @@ template:
   params:
     ganalytics: G-X2YDJXSDJ1
 
+authors:
+  Bruno Mioto:
+  href: https://brunomioto.com.br
+  Gabriela Junqueira:
+  href: https://junqueiragaabi.github.io
+
 reference:
 - title: Geoms
   desc: |
