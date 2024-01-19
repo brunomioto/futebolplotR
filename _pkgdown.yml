@@ -1,6 +1,9 @@
 url: https://brunomioto.github.io/futebolplotR/
 template:
   bootstrap: 5
+  params:
+    ganalytics: G-X2YDJXSDJ1
+
 reference:
 - title: Geoms
   desc: |
