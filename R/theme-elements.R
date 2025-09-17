@@ -69,7 +69,7 @@ element_futebol_badge <- function(alpha = NULL, colour = NA, hjust = NULL, vjust
 element_grob.element_futebol_badge <- function(element, label = "", x = NULL, y = NULL,
                                           alpha = NULL, colour = NULL,
                                           hjust = 0.5, vjust = 0.5,
-                                          size = NULL, ...) {
+                                          size = NULL, theme = NULL, ...) {
 
   if (is.null(label)) return(ggplot2::zeroGrob())
 
@@ -91,6 +91,7 @@ element_grob.element_futebol_badge <- function(element, label = "", x = NULL, y 
     hjust = hjust,
     vjust = vjust,
     size = size,
+    theme = theme,
     ...
   )
 }
