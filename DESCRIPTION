@@ -16,8 +16,8 @@ Depends:
 Imports: 
     brasileirao,
     cli (>= 3.0.0),
-    ggpath (>= 1.0.0),
-    ggplot2 (>= 3.3.0),
+    ggpath (>= 1.0.1),
+    ggplot2 (>= 4.0.0),
     glue,
     grid,
     lifecycle,
