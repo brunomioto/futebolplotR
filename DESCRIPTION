@@ -1,6 +1,6 @@
 Package: futebolplotR
 Title: Brazilian Soccer Badges Plots in 'ggplot2'
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: c(
     person("Bruno", "Mioto", , "brunomioto97@gmail.com", role = c("cre", "aut")),
     person("Gabriela", "Junqueira", , "mg.junqueira@hotmail.com", role = "aut")
