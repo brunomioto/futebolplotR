@@ -15,17 +15,22 @@ element_futebol_badge(
 }
 \arguments{
 \item{alpha}{The alpha channel, i.e. transparency level, as a numerical value
-between 0 and 1.}
+between 0 and 1. \code{1L} skips alpha channel modification for more speed.}
 
-\item{colour, color}{The image will be colorized with this color. Use the
+\item{colour, color}{The image will be colorized with this color. Defaults to
+\code{NA_character_} which means no change of color at all. Use the
 special character \code{"b/w"} to set it to black and white. For more information
 on valid color names in ggplot2 see
 \url{https://ggplot2.tidyverse.org/articles/ggplot2-specs.html?q=colour#colour-and-fill}.}
 
-\item{hjust, vjust}{The horizontal and vertical adjustment respectively.
-Must be a numerical value between 0 and 1.}
+\item{hjust}{A numeric vector specifying horizontal justification.
+    If specified, overrides the \code{just} setting.}
 
-\item{size}{The output grob size in \code{cm} (!).}
+\item{vjust}{A numeric vector specifying vertical justification.
+    If specified, overrides the \code{just} setting.}
+
+\item{size}{The output grob size as a \link[grid:unit]{grid::unit}. If given a numeric,
+\code{cm} will be applied as unit.}
 }
 \value{
 An S3 object of class \code{element}.

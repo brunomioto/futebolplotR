@@ -5,6 +5,7 @@
 #     alt = brasileirao::teams$abbr,
 #     team = brasileirao::teams$abbr
 #   ) |>
+#   dplyr::add_row(alt = "MGA", team = "MGA") |>
 #   dplyr::arrange(team) |>
 #   tibble::deframe()
 #
