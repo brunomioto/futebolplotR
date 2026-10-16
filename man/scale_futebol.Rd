@@ -146,7 +146,7 @@ ggplot(df, aes(x = teams, y = random_value)) +
   scale_color_futebol(type = "secondary") +
   scale_fill_futebol(alpha = 0.4) +
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  theme(axis.text.x.bottom = element_text(angle = 45, hjust = 1))
 }
 }
 \seealso{

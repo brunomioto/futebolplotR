@@ -6,9 +6,9 @@ template:
 
 authors:
   Bruno Mioto:
-  href: https://brunomioto.com.br
+    href: https://brunomioto.com.br
   Gabriela Junqueira:
-  href: https://junqueiragaabi.github.io
+    href: https://junqueiragaabi.github.io
 
 reference:
 - title: Geoms
@@ -32,4 +32,5 @@ reference:
   - clean_team_abbrs
   - valid_team_names
   - ends_with("team_abbr_mapping")
+  - teams_colors_badges
 

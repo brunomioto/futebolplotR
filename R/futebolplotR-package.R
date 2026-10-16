@@ -2,12 +2,8 @@
 "_PACKAGE"
 
 ## usethis namespace: start
-#' @import cli
-#' @import ggpath
-#' @import grid
-#' @import rlang
 #' @importFrom ggplot2 element_grob
-#' @importFrom glue glue
-#' @importFrom lifecycle deprecated
+#' @importFrom ggpath element_path
+#' @importFrom rlang %||%
 ## usethis namespace: end
 NULL

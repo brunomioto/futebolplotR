@@ -25,6 +25,8 @@ present day. Other teams are also welcome!
 This package can be used with data from
 [brasileirao](https://github.com/williamorim/brasileirao) R package.
 
+Since version 0.1.0, **futebolplotR** requires ggplot2 \>= 4.0.0.
+
 The code for this package was **heavily** based on
 [nbaplotR](https://mrcaseb.github.io/nbaplotR/) with minor changes to
 support Brazilian soccer team badges.
@@ -43,7 +45,7 @@ pak::pak("brunomioto/futebolplotR")
 
 The key function in the package is `geom_futebol_badges()` which will
 add Brazilian soccer team badges to a ggplot. Here you can see all the
-current available teams (currently 44) to plot.
+current available teams (currently 46) to plot.
 
 ``` r
 library(futebolplotR)
@@ -51,9 +53,12 @@ library(ggplot2)
 
 team <- futebolplotR::valid_team_names()
 
+n_cols <- 5
+n_rows <- ceiling(length(team) / n_cols)
+
 df <- data.frame(
-  a = c(rep(1:5, 9)),
-  b = sort(c(rep(1:9, 5)), decreasing = TRUE),
+  a = rep(1:n_cols, n_rows)[seq_along(team)],
+  b = rep(n_rows:1, each = n_cols)[seq_along(team)],
   teams = team
 )
 
@@ -74,7 +79,7 @@ ggplot(df, aes(x = a, y = b)) +
   coord_cartesian(clip = "off")
 ```
 
-<img src="man/figures/README-plot-1.png" width="100%" />
+<img src="man/figures/README-plot-1.png" alt="" width="100%" />
 
 For more information on using the package, check out our [**Getting
 Started**](https://brunomioto.github.io/futebolplotR/articles/futebolplotR.html)

@@ -2,7 +2,6 @@
 % Please edit documentation in R/futebolplotR-package.R, R/geom_futebol_badges.R
 \docType{package}
 \name{futebolplotR-package}
-\alias{futebolplotR}
 \alias{futebolplotR-package}
 \alias{GeomFUTbadge}
 \title{futebolplotR: Brazilian Soccer Badges Plots in 'ggplot2'}
