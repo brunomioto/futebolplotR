@@ -15,9 +15,10 @@ it will be replaced with \code{NA}.}
 }
 \value{
 A character vector with the length of \code{abbr} and cleaned team abbreviations
-if they are included in \code{\link{team_abbr_mapping}}.
+if they are included in \code{\link{futebol_team_abbr_mapping}}.
 Non matches may be replaced with \code{NA} (depending on the value of \code{keep_non_matches}).
 }
 \description{
-This function standardizes Brazilian Soccer team abbreviations to brasileirao defaults.
+This function standardizes Brazilian Soccer team abbreviations to the
+abbreviations used in futebolplotR (see \code{\link{futebol_team_abbr_mapping}}).
 }

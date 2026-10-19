@@ -2,12 +2,9 @@
 "_PACKAGE"
 
 ## usethis namespace: start
-#' @import cli
-#' @import ggpath
-#' @import grid
-#' @import rlang
 #' @importFrom ggplot2 element_grob
-#' @importFrom glue glue
-#' @importFrom lifecycle deprecated
+#' @importFrom ggpath element_path
+#' @importFrom rlang %||%
+#' @rawNamespace if (getRversion() < "4.3.0") importFrom("S7", "@")
 ## usethis namespace: end
 NULL

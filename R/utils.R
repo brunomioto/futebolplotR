@@ -8,14 +8,7 @@
 #' valid_team_names()
 
 valid_team_names <- function(){
-  map <- futebolplotR::futebol_team_abbr_mapping
-  n <- sort(unique(map))
-  n
-  #teams <- list.files("inst")
-  #teams <- teams[!teams == "team.svg"]
-  #badge_teams <- gsub('.svg', '', teams)
-  #valid_names <- n[n %in% badge_teams]
-  # return(valid_names)
+  sort(unique(unname(futebolplotR::futebol_team_abbr_mapping)))
 }
 
 
@@ -23,7 +16,8 @@ valid_team_names <- function(){
 
 #' Standardize Brazilian Soccer Team Abbreviations
 #'
-#' This function standardizes Brazilian Soccer team abbreviations to brasileirao defaults.
+#' This function standardizes Brazilian Soccer team abbreviations to the
+#' abbreviations used in futebolplotR (see [`futebol_team_abbr_mapping`]).
 #'
 #' @param abbr a character vector of abbreviations
 #' @param keep_non_matches If `TRUE` (the default) an element of `abbr` that can't
@@ -31,7 +25,7 @@ valid_team_names <- function(){
 #'   it will be replaced with `NA`.
 #'
 #' @return A character vector with the length of `abbr` and cleaned team abbreviations
-#'   if they are included in [`team_abbr_mapping`].
+#'   if they are included in [`futebol_team_abbr_mapping`].
 #'   Non matches may be replaced with `NA` (depending on the value of `keep_non_matches`).
 #' @export
 clean_team_abbrs <- function(abbr,
@@ -55,8 +49,18 @@ clean_team_abbrs <- function(abbr,
 }
 
 # internal helper that outputs local path to badge files
+# returns "" for abbreviations without a badge file
 badge_from_abbr <- function(abbr){
+  path <- file.path(
+    system.file("badges", package = "futebolplotR"),
+    paste0(abbr, ".svg")
+  )
+  path[is.na(abbr) | !file.exists(path)] <- ""
+  path
+}
 
-  system.file(paste0("/", abbr, ".svg"), package = "futebolplotR")
-
+# internal helper that outputs local path to the generic badge used for
+# team abbreviations without a badge
+placeholder_badge <- function(){
+  system.file("badges", "team.svg", package = "futebolplotR")
 }

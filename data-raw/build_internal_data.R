@@ -1,37 +1,54 @@
-## code to prepare `build_internal_data` dataset goes here
-
-
-# teams_colors_badges <- dplyr::tibble(
-#   brasileirao::teams,
-#   badge = paste0("https://github.com/brunomioto/futebolplotR/tree/main/inst/", abbr, ".svg")
-# )
-
-
-# # copy the new dataset - yes, will update it soon
-# teams <- read.delim("clipboard")
-# teams_colors_badges <- dplyr::tibble(
-#   teams,
-#   badge = paste0("https://github.com/brunomioto/futebolplotR/tree/main/inst/", abbr, ".svg")
-# )
-
-
-# purrr::walk(teams_colors_badges$abbr, function(abbr){
-#   url <- teams_colors_badges$badge[teams_colors_badges$abbr == abbr]
-#   #add mode = 'wb' on windows
-#   download.file(url, file.path("inst", paste0(abbr, ".svg")), mode = 'wb')
-# })
+# Build package data from data-raw/teams.csv -------------------------------
 #
-# futebol_primary_colors <- teams_colors_badges$color1 %>%
-#   rlang::set_names(teams_colors_badges$abbr)
-#
-# futebol_secondary_colors <- teams_colors_badges$color2  %>%
-#   rlang::set_names(teams_colors_badges$abbr)
+# data-raw/teams.csv is the single source of truth for teams and colors.
+# To add a team:
+#   1. add its badge as inst/badges/<ABBR>.svg
+#   2. add a row to data-raw/teams.csv
+#   3. run this script
+
+teams_colors_badges <- utils::read.csv(
+  "data-raw/teams.csv",
+  encoding = "UTF-8",
+  stringsAsFactors = FALSE
+)
+teams_colors_badges <- teams_colors_badges[order(teams_colors_badges$abbr), ]
+rownames(teams_colors_badges) <- NULL
+
+missing_badges <- teams_colors_badges$abbr[
+  !file.exists(file.path("inst", "badges", paste0(teams_colors_badges$abbr, ".svg")))
+]
+if (length(missing_badges) > 0) {
+  stop("Missing badge files for: ", paste(missing_badges, collapse = ", "))
+}
+
+# Abbreviation mapping (alternative abbreviation -> standard abbreviation).
+# Add aliases here, e.g. c(SPFC = "SAO").
+futebol_team_abbr_mapping <- stats::setNames(
+  teams_colors_badges$abbr,
+  teams_colors_badges$abbr
+)
+
+futebol_primary_colors <- stats::setNames(
+  teams_colors_badges$color1,
+  teams_colors_badges$abbr
+)
+
+futebol_secondary_colors <- stats::setNames(
+  teams_colors_badges$color2,
+  teams_colors_badges$abbr
+)
 
 # Write Data --------------------------------------------------------------
 
-# usethis::use_data(
-#   teams_colors_badges,
-#   futebol_primary_colors,
-#   futebol_secondary_colors,
-#   internal = TRUE, overwrite = TRUE
-# )
+usethis::use_data(
+  teams_colors_badges,
+  futebol_team_abbr_mapping,
+  overwrite = TRUE
+)
+
+usethis::use_data(
+  futebol_primary_colors,
+  futebol_secondary_colors,
+  internal = TRUE,
+  overwrite = TRUE
+)

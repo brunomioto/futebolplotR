@@ -36,35 +36,25 @@
 #'   scale_color_futebol(type = "secondary") +
 #'   scale_fill_futebol(alpha = 0.4) +
 #'   theme_minimal() +
-#'   theme(axis.text.x = element_text(angle = 45, hjust = 1))
+#'   theme(axis.text.x.bottom = element_text(angle = 45, hjust = 1))
 #' }
 NULL
 
 #' @rdname scale_futebol
 #' @export
-scale_color_futebol <- function(type = c("primary", "secondary"),
-                            values = NULL,
-                            ...,
-                            aesthetics = "colour",
-                            breaks = ggplot2::waiver(),
-                            na.value = "grey50",
-                            guide = NULL,
-                            alpha = NA) {
-
-  type <- rlang::arg_match0(type, c("primary", "secondary"))
-
-  if(is.null(values)){
-    values <- switch(type,
-      "primary"   = futebol_primary_colors,
-      "secondary" = futebol_secondary_colors
-    )
-  }
-
-  if(!is.na(alpha)) values <- scales::alpha(values, alpha = alpha)
-
+scale_color_futebol <- function(
+    type = c("primary", "secondary"),
+    values = NULL,
+    ...,
+    aesthetics = "colour",
+    breaks = ggplot2::waiver(),
+    na.value = "grey50",
+    guide = NULL,
+    alpha = NA
+) {
   ggplot2::scale_color_manual(
     ...,
-    values = values,
+    values = futebol_values(type, values, alpha),
     aesthetics = aesthetics,
     breaks = breaks,
     na.value = na.value,
@@ -79,32 +69,43 @@ scale_colour_futebol <- scale_color_futebol
 
 #' @rdname scale_futebol
 #' @export
-scale_fill_futebol <- function(type = c("primary", "secondary"),
-                               values = NULL,
-                               ...,
-                               aesthetics = "fill",
-                               breaks = ggplot2::waiver(),
-                               na.value = "grey50",
-                               guide = NULL,
-                               alpha = NA) {
+scale_fill_futebol <- function(
+    type = c("primary", "secondary"),
+    values = NULL,
+    ...,
+    aesthetics = "fill",
+    breaks = ggplot2::waiver(),
+    na.value = "grey50",
+    guide = NULL,
+    alpha = NA
+) {
+  ggplot2::scale_fill_manual(
+    ...,
+    values = futebol_values(type, values, alpha),
+    aesthetics = aesthetics,
+    breaks = breaks,
+    na.value = na.value,
+    guide = guide
+  )
+}
 
-  type <- rlang::arg_match0(type, c("primary", "secondary"))
+# internal helper that selects the team colors used by the scales
+futebol_values <- function(type, values, alpha, call = rlang::caller_env()) {
+  type <- rlang::arg_match0(
+    type[1],
+    c("primary", "secondary"),
+    arg_nm = "type",
+    error_call = call
+  )
 
-  if(is.null(values)){
+  if (is.null(values)) {
     values <- switch(type,
       "primary"   = futebol_primary_colors,
       "secondary" = futebol_secondary_colors
     )
   }
 
-  if(!is.na(alpha)) values <- scales::alpha(values, alpha = alpha)
+  if (!all(is.na(alpha))) values <- scales::alpha(values, alpha = alpha)
 
-  ggplot2::scale_fill_manual(
-    ...,
-    values = values,
-    aesthetics = aesthetics,
-    breaks = breaks,
-    na.value = na.value,
-    guide = guide
-  )
+  values
 }
