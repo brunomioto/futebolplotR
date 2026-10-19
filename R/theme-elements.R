@@ -124,7 +124,7 @@ S7::method(element_grob, element_futebol_badge) <- function(
 
   grid::gTree(
     children = do.call(grid::gList, grobs),
-    size = element@size,
+    size = badge_size(element),
     cl = "futebol_element"
   )
 }
@@ -134,6 +134,16 @@ grobWidth.futebol_element <- function(x, ...) x$size
 
 #' @exportS3Method grid::grobHeight
 grobHeight.futebol_element <- function(x, ...) x$size
+
+# internal helper that returns the badge size as a unit. ggpath >= 1.1.2
+# stores it in `image_size` and `size` is the inherited text size
+badge_size <- function(element) {
+  if ("image_size" %in% S7::prop_names(element)) {
+    element@image_size
+  } else {
+    element@size
+  }
+}
 
 # internal helper that reads a badge and applies alpha and colour
 badge_image <- function(path, alpha = 1, colour = NA) {

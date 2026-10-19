@@ -85,7 +85,8 @@ test_that("badge element is an S7 element", {
   el <- element_futebol_badge(size = 1)
   expect_true(S7::S7_inherits(el, element_futebol_badge))
   expect_true(S7::S7_inherits(el, ggpath::element_path))
-  expect_true(grid::is.unit(el@size))
+  expect_true(grid::is.unit(badge_size(el)))
+  expect_equal(as.numeric(badge_size(el)), 1)
 })
 
 test_that("badge element warns on unknown abbreviations", {
