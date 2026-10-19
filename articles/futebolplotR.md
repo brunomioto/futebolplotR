@@ -1,0 +1,195 @@
+# Get Started with futebolplotR
+
+## Install the Package
+
+The easiest way to get `futebolplotR` is to install it from with:
+
+``` r
+
+if (!require("pak")) install.packages("pak")
+pak::pak("brunomioto/futebolplotR")
+```
+
+## Common usage
+
+Let’s explore a few standard scenarios for utilizing `futebolplotR`.
+Initially, we load the essencial packages.
+
+``` r
+
+library(futebolplotR)
+library(ggplot2)
+library(dplyr)
+library(brasileirao)
+```
+
+We will load the data for the Campeonato Brasileiro and explore the
+database. We will select the 2025 season of the Campeonato Brasileiro.
+
+``` r
+
+season_2025 <- brasileirao::matches |>
+  dplyr::filter(season == 2025) |>
+  brasileirao::add_variables() |>
+  # brasileirao doesn't have an abbreviation for Mirassol yet
+  mutate(home_abbr = if_else(home == "Mirassol", "MIR", home_abbr))
+
+season_2025_home <- season_2025 |>
+    group_by(home) |>
+    summarise(home_abbr = first(home_abbr),
+              total_home_points = sum(home_points),
+              goal_concede_home = sum(as.numeric(away_score)),
+              goal_scored_home = sum(as.numeric(home_score)),
+              .groups = "drop") |>
+    rename(fc = home)
+
+season_2025_away <- season_2025 |>
+    group_by(away) |>
+    summarise(total_away_points = sum(away_points),
+              goal_concede_away = sum(as.numeric(home_score)),
+              goal_scored_away = sum(as.numeric(away_score)),
+              .groups = "drop") |>
+    rename(fc = away)
+
+
+df_teams <- season_2025_home |>
+    left_join(season_2025_away, by = "fc") |>
+    mutate(goals_concede = goal_concede_home + goal_concede_away,
+           goals_scored = goal_scored_home + goal_scored_away,
+           goals_difference = goals_scored - goals_concede)
+```
+
+### Badges in Scatter Plots
+
+Firstly, we will visualize the points earned at home and away for each
+team. This will be done to demonstrate how we can use the team badges.
+
+``` r
+
+ggplot(df_teams, aes(x = total_home_points, y = total_away_points)) +
+  geom_abline(color = "grey30")+
+  futebolplotR::geom_futebol_badges(aes(team_abbr = home_abbr),
+                                    width = 0.064, alpha = 0.8) +
+  labs(
+    x = "Points home",
+    y = "Points away",
+    caption = "Data: @brasileirao",
+    title = "Campeonato Brasileiro 2025"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold"),
+    plot.title.position = "plot"
+  ) +
+  coord_fixed(
+    xlim = c(5, 50),
+    ylim = c(5, 50), 
+    clip = "off"
+  )
+```
+
+![](futebolplotR_files/figure-html/unnamed-chunk-4-1.png)
+
+### Team Colors and Badges as Axis Labels
+
+Now, we will demonstrate how we can incorporate each team’s specific
+colors into the shapes (in this case, the bars of the graph) and how we
+can use the team badges as axis labels.
+
+``` r
+
+ggplot(df_teams, aes(x = reorder(home_abbr, -goals_scored),
+                              y = goals_scored)) +
+  geom_col(aes(color = home_abbr, fill = home_abbr),
+           width = 0.6) +
+  futebolplotR::scale_color_futebol(type = "secondary") +
+  futebolplotR::scale_fill_futebol(type = "primary") +
+  labs(
+    title = "Campeonato Brasileiro 2025",
+    y = "Goals Scored",
+    caption = "Data: @brasileirao"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold"),
+    plot.title.position = "plot",
+    axis.title.x = element_blank(),
+    # this line triggers the replacement of team abbreviations with badges
+    # use axis.text.x.bottom (not axis.text.x) with complete themes like theme_minimal()
+    axis.text.x.bottom = futebolplotR::element_futebol_badge(size = 0.8)
+  )
+```
+
+![](futebolplotR_files/figure-html/unnamed-chunk-5-1.png)
+
+``` r
+
+ggplot(df_teams, aes(x = reorder(home_abbr, -goals_difference),
+                              y = goals_difference)) +
+  geom_col(aes(color = home_abbr, fill = home_abbr),
+           width = 0.6) +
+  futebolplotR::scale_color_futebol(type = "secondary") +
+  futebolplotR::scale_fill_futebol(type = "primary") +
+  labs(
+    title = "Campeonato Brasileiro 2025",
+    y = "Goals difference",
+    caption = "Data: @brasileirao"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold"),
+    plot.title.position = "plot",
+    axis.title.x = element_blank(),
+    # this line triggers the replacement of team abbreviations with badges
+    # use axis.text.x.bottom (not axis.text.x) with complete themes like theme_minimal()
+    axis.text.x.bottom = futebolplotR::element_futebol_badge(size = 0.8)
+  )
+```
+
+![](futebolplotR_files/figure-html/unnamed-chunk-6-1.png)
+
+### Badges as Annotations
+
+Badges can also be added to a single position of the plot with
+[`annotate()`](https://ggplot2.tidyverse.org/reference/annotate.html).
+This is useful to highlight a team, or to add a badge to the plot
+background.
+
+``` r
+
+fluminense <- df_teams |>
+  filter(home_abbr == "FLU")
+
+ggplot(df_teams, aes(x = goals_scored, y = goals_concede)) +
+  annotate(
+    "futebol_badges",
+    x = mean(range(df_teams$goals_scored)),
+    y = mean(range(df_teams$goals_concede)),
+    team_abbr = "FLU",
+    width = 0.35, alpha = 0.15
+  ) +
+  geom_point(color = "grey40") +
+  annotate(
+    "futebol_badges",
+    x = fluminense$goals_scored, y = fluminense$goals_concede,
+    team_abbr = "FLU",
+    width = 0.08
+  ) +
+  labs(
+    title = "Campeonato Brasileiro 2025",
+    subtitle = paste0(
+      "Fluminense: ", fluminense$goals_scored, " goals scored and ",
+      fluminense$goals_concede, " conceded"
+    ),
+    x = "Goals scored",
+    y = "Goals conceded",
+    caption = "Data: @brasileirao"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold"),
+    plot.title.position = "plot"
+  )
+```
+
+![](futebolplotR_files/figure-html/unnamed-chunk-7-1.png)
