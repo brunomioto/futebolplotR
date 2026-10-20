@@ -108,7 +108,7 @@ S7::method(element_grob, element_futebol_badge) <- function(
 
   grobs <- lapply(seq_along(label), function(i) {
     grob <- grid::rasterGrob(
-      badge_image(paths[i], alpha = element@alpha, colour = element@colour)
+      badge_raster(paths[i], alpha = element@alpha, colour = element@colour)
     )
     grob$vp <- grid::viewport(
       x = grid::unit(as.numeric(x[i]), "native"),
@@ -145,13 +145,71 @@ badge_size <- function(element) {
   }
 }
 
-# internal helper that reads a badge and applies alpha and colour
-badge_image <- function(path, alpha = 1, colour = NA) {
-  if (!is.numeric(alpha) || length(alpha) != 1L || alpha < 0 || alpha > 1) {
+# session cache of ready-to-draw badge rasters, keyed by path, alpha and colour
+.badge_cache <- new.env(parent = emptyenv())
+
+# internal helper that returns a badge as nativeRaster with alpha and colour
+# applied. Results are cached so every badge is only processed once per session.
+badge_raster <- function(path, alpha = 1, colour = NA) {
+  check_alpha(alpha)
+  key <- paste(path, alpha, colour, sep = "|")
+  cached <- .badge_cache[[key]]
+  if (!is.null(cached)) return(cached)
+  if (length(.badge_cache) > 200L) {
+    rm(list = ls(.badge_cache), envir = .badge_cache)
+  }
+
+  has_colour <- length(colour) == 1L && !is.na(colour)
+  if (alpha < 1 && has_colour) {
+    # applying alpha before the colour is order and precision sensitive,
+    # so this rare combination keeps the exact ImageMagick pipeline
+    px <- magick::image_data(badge_image(path, alpha, colour), "rgba")
+  } else {
+    img <- magick::image_read(rsvg::rsvg_raw(path))
+    if (has_colour) img <- colourise_badge(img, colour)
+    px <- magick::image_data(img, "rgba")
+    # same result as image_fx(img, "alpha*a", channel = "alpha"), but much faster
+    if (alpha < 1) px[4, , ] <- as.raw(floor(as.integer(px[4, , ]) * alpha + 0.5))
+  }
+
+  out <- as_native_raster(px)
+  assign(key, out, envir = .badge_cache)
+  out
+}
+
+# internal helper that packs a 4 x width x height RGBA raw array into a
+# nativeRaster. Never call as.raster() on the result, compare bytes instead
+# because the packed integer 0x80000000 is NA_integer_ in R.
+as_native_raster <- function(px) {
+  d <- dim(px)
+  structure(
+    readBin(as.vector(px), "integer", n = d[2] * d[3], size = 4L, endian = "little"),
+    dim = c(d[3], d[2]),
+    class = "nativeRaster",
+    channels = 4L
+  )
+}
+
+check_alpha <- function(alpha) {
+  if (!is.numeric(alpha) || length(alpha) != 1L || is.na(alpha) ||
+      alpha < 0 || alpha > 1) {
     cli::cli_abort(
       "{.arg alpha} requires a value between {.val {0}} and {.val {1}}."
     )
   }
+}
+
+colourise_badge <- function(img, colour) {
+  if (colour == "b/w") {
+    magick::image_quantize(img, colorspace = "gray")
+  } else {
+    magick::image_colorize(img, 100, colour)
+  }
+}
+
+# internal helper that reads a badge and applies alpha and colour
+badge_image <- function(path, alpha = 1, colour = NA) {
+  check_alpha(alpha)
   img <- magick::image_read(rsvg::rsvg_raw(path))
   if (alpha < 1) {
     img <- magick::image_fx(
@@ -160,12 +218,6 @@ badge_image <- function(path, alpha = 1, colour = NA) {
       channel = "alpha"
     )
   }
-  if (length(colour) == 1L && !is.na(colour)) {
-    img <- if (colour == "b/w") {
-      magick::image_quantize(img, colorspace = "gray")
-    } else {
-      magick::image_colorize(img, 100, colour)
-    }
-  }
+  if (length(colour) == 1L && !is.na(colour)) img <- colourise_badge(img, colour)
   img
 }

@@ -90,7 +90,7 @@ ggplot(df_teams, aes(x = total_home_points, y = total_away_points)) +
   labs(
     x = "Points home",
     y = "Points away",
-    caption = "Data: @brasileirao",
+    caption = "Data: williamorim/brasileirao",
     title = "Campeonato Brasileiro 2025"
   ) +
   theme_minimal() +
@@ -100,7 +100,7 @@ ggplot(df_teams, aes(x = total_home_points, y = total_away_points)) +
   ) +
   coord_fixed(
     xlim = c(5, 50),
-    ylim = c(5, 50), 
+    ylim = c(5, 50),
     clip = "off"
   )
 ```
@@ -109,7 +109,7 @@ ggplot(df_teams, aes(x = total_home_points, y = total_away_points)) +
 
 Now, we will demonstrate how we can incorporate each team's specific colors into the shapes (in this case, the bars of the graph) and how we can use the team badges as axis labels.
 
-```{r, fig.width=6, fig.height=4, dpi = 600}
+```{r, fig.width=7, fig.height=4, dpi = 600}
 ggplot(df_teams, aes(x = reorder(home_abbr, -goals_scored),
                               y = goals_scored)) +
   geom_col(aes(color = home_abbr, fill = home_abbr),
@@ -119,7 +119,7 @@ ggplot(df_teams, aes(x = reorder(home_abbr, -goals_scored),
   labs(
     title = "Campeonato Brasileiro 2025",
     y = "Goals Scored",
-    caption = "Data: @brasileirao"
+    caption = "Data: williamorim/brasileirao"
   ) +
   theme_minimal() +
   theme(
@@ -132,7 +132,7 @@ ggplot(df_teams, aes(x = reorder(home_abbr, -goals_scored),
   )
 ```
 
-```{r, fig.width=6, fig.height=4, dpi = 600}
+```{r, fig.width=7, fig.height=4, dpi = 600}
 ggplot(df_teams, aes(x = reorder(home_abbr, -goals_difference),
                               y = goals_difference)) +
   geom_col(aes(color = home_abbr, fill = home_abbr),
@@ -142,7 +142,7 @@ ggplot(df_teams, aes(x = reorder(home_abbr, -goals_difference),
   labs(
     title = "Campeonato Brasileiro 2025",
     y = "Goals difference",
-    caption = "Data: @brasileirao"
+    caption = "Data: williamorim/brasileirao"
   ) +
   theme_minimal() +
   theme(
@@ -187,7 +187,7 @@ ggplot(df_teams, aes(x = goals_scored, y = goals_concede)) +
     ),
     x = "Goals scored",
     y = "Goals conceded",
-    caption = "Data: @brasileirao"
+    caption = "Data: williamorim/brasileirao"
   ) +
   theme_minimal() +
   theme(

@@ -139,12 +139,42 @@ GeomFUTbadge <- ggplot2::ggproto(
       data$path[missing] <- placeholder_badge()
     }
 
-    ggpath::GeomFromPath$draw_panel(
-      data = data,
-      panel_params = panel_params,
-      coord = coord,
-      na.rm = na.rm
-    )
+    data <- coord$transform(data, panel_params)
+    n <- nrow(data)
+
+    alpha <- rep_len(as.numeric(data$alpha %||% 1), n)
+    alpha[is.na(alpha)] <- 1
+    if (any(alpha < 0 | alpha > 1)) {
+      cli::cli_abort(c(
+        "all values of {.arg alpha} have to be in range {.val {0}}:{.val {1}}",
+        x = "You've supplied {.val {unique(alpha)}}"
+      ))
+    }
+    colour <- rep_len(as.character(data$colour %||% NA), n)
+
+    # every unique badge/alpha/colour combination is only rasterised once
+    key <- paste(data$path, alpha, colour, sep = "|")
+    first <- !duplicated(key)
+    rasters <- lapply(which(first), function(i) {
+      badge_raster(data$path[i], alpha = alpha[i], colour = colour[i])
+    })
+    names(rasters) <- key[first]
+
+    grobs <- lapply(seq_len(n), function(i) {
+      grid::rasterGrob(
+        rasters[[key[i]]],
+        vp = grid::viewport(
+          x = grid::unit(data$x[i], "native"),
+          y = grid::unit(data$y[i], "native"),
+          width = grid::unit(data$width[i], "npc"),
+          height = grid::unit(data$height[i], "npc"),
+          just = c(data$hjust[i], data$vjust[i]),
+          angle = data$angle[i]
+        ),
+        name = paste0("ggpath.grob.", i)
+      )
+    })
+    grid::gTree(children = do.call(grid::gList, grobs))
   },
   draw_key = function(...) grid::nullGrob()
 )

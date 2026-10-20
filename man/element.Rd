@@ -30,7 +30,9 @@ special character \code{"b/w"} to set it to black and white.}
 \item{angle}{The angle of the element as a numerical value between 0° and 360°.}
 
 \item{size}{The output grob size as a \link[grid:unit]{grid::unit}. If given a numeric,
-\code{cm} will be applied as unit.}
+\code{cm} will be applied as unit.
+Stored in the \code{image_size} property so the inherited text \code{size} property
+retains the numeric type required by \code{\link[ggplot2:element_text]{ggplot2::element_text()}}.}
 }
 \value{
 An S7 object of class \code{element_futebol_badge}.

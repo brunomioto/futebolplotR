@@ -6,7 +6,7 @@ test_that("badge geom works", {
   df <- data.frame(
     a = rep(1:3, 2),
     b = rep(1:2, each = 3),
-    teams = c("FLA", "PAL", "COR", "SAO", "MGA", "MIR")
+    teams = c("FLU", "SAN", "MGA", "SAN", "MGA", "FLU")
   )
   df$alpha <- c(1, 0.3, 1, 0.3, 1, 0.3)
   df$colour <- c(NA, NA, "b/w", NA, "gray", NA)
@@ -20,7 +20,7 @@ test_that("badge geom works", {
 
   p3 <- ggplot(df, aes(x = a, y = b)) +
     geom_point() +
-    annotate("futebol_badges", x = 2, y = 1.5, team_abbr = "FLA", width = 0.2) +
+    annotate("futebol_badges", x = 2, y = 1.5, team_abbr = "FLU", width = 0.2) +
     lims +
     theme_void()
 
@@ -40,7 +40,7 @@ test_that("badge geom works with alpha and colour", {
   df <- data.frame(
     a = rep(1:3, 2),
     b = rep(1:2, each = 3),
-    teams = c("FLA", "PAL", "COR", "SAO", "MGA", "MIR")
+    teams = c("FLU", "SAN", "MGA", "SAN", "MGA", "FLU")
   )
   df$alpha <- c(1, 0.3, 1, 0.3, 1, 0.3)
   df$colour <- c(NA, NA, "b/w", NA, "gray", NA)
@@ -60,7 +60,7 @@ test_that("badge geom works with alpha and colour", {
 
 test_that("badge geom warns on unknown abbreviations", {
   library(ggplot2)
-  df <- data.frame(a = 1:2, b = 1:2, teams = c("FLA", "XXX"))
+  df <- data.frame(a = 1:2, b = 1:2, teams = c("FLU", "XXX"))
   p <- ggplot(df, aes(x = a, y = b)) +
     geom_futebol_badges(aes(team_abbr = teams), width = 0.15)
   withr::local_pdf(NULL)
@@ -71,7 +71,7 @@ test_that("badge geom draws a generic badge for unknown abbreviations", {
   skip_on_cran()
   skip_if_not_installed("vdiffr")
   library(ggplot2)
-  df <- data.frame(a = 1:3, b = 1, teams = c("FLA", "XXX", "PAL"))
+  df <- data.frame(a = 1:3, b = 1, teams = c("FLU", "XXX", "SAN"))
   p <- ggplot(df, aes(x = a, y = b)) +
     geom_futebol_badges(aes(team_abbr = teams), width = 0.2) +
     coord_cartesian(xlim = c(0.5, 3.5)) +
@@ -80,4 +80,20 @@ test_that("badge geom draws a generic badge for unknown abbreviations", {
     vdiffr::expect_doppelganger("geom badges generic", p),
     "XXX"
   )
+})
+
+test_that("badge geom validates alpha and reuses rasters", {
+  library(ggplot2)
+  df <- data.frame(a = 1:4, b = 1, teams = c("FLU", "FLU", "SAN", "FLU"))
+  withr::local_pdf(NULL)
+
+  p <- ggplot(df, aes(x = a, y = b)) +
+    geom_futebol_badges(aes(team_abbr = teams), width = 0.1, alpha = 2)
+  expect_error(ggplotGrob(p), "alpha")
+
+  p <- ggplot(df, aes(x = a, y = b)) +
+    geom_futebol_badges(aes(team_abbr = teams), width = 0.1)
+  layer <- layer_grob(p)[[1]]
+  expect_length(layer$children, 4L)
+  expect_identical(layer$children[[1]]$raster, layer$children[[2]]$raster)
 })

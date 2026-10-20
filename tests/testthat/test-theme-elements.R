@@ -5,7 +5,7 @@ test_that("badge element works", {
 
   df <- data.frame(
     random_value = c(0.3, 0.6, 0.9),
-    teams = c("FLA", "MGA", "MIR")
+    teams = c("FLU", "SAN", "MGA")
   )
 
   p1 <- ggplot(df, aes(x = teams, y = random_value)) +
@@ -39,7 +39,7 @@ test_that("badge element works with alpha and colour", {
 
   df <- data.frame(
     random_value = c(0.3, 0.6, 0.9),
-    teams = c("FLA", "MGA", "MIR")
+    teams = c("FLU", "SAN", "MGA")
   )
 
   p <- ggplot(df, aes(x = teams, y = random_value)) +
@@ -53,7 +53,7 @@ test_that("badge element works with alpha and colour", {
 })
 
 test_that("badge_image applies alpha", {
-  path <- badge_from_abbr("FLA")
+  path <- badge_from_abbr("FLU")
   rgba <- function(img) as.integer(magick::image_data(img, "rgba"))
 
   orig <- rgba(badge_image(path))
@@ -65,7 +65,7 @@ test_that("badge_image applies alpha", {
 })
 
 test_that("badge_image applies b/w and colour", {
-  path <- badge_from_abbr("FLA")
+  path <- badge_from_abbr("FLU")
   rgba <- function(img) as.integer(magick::image_data(img, "rgba"))
   opaque <- function(x) x[, , 4] == 255
 
@@ -91,7 +91,7 @@ test_that("badge element is an S7 element", {
 
 test_that("badge element warns on unknown abbreviations", {
   library(ggplot2)
-  df <- data.frame(teams = c("FLA", "XXX"), value = 1:2)
+  df <- data.frame(teams = c("FLU", "XXX"), value = 1:2)
   p <- ggplot(df, aes(teams, value)) +
     geom_col() +
     theme(axis.text.x.bottom = element_futebol_badge())
@@ -100,7 +100,7 @@ test_that("badge element warns on unknown abbreviations", {
 })
 
 test_that("badge element validates alpha", {
-  path <- badge_from_abbr("FLA")
+  path <- badge_from_abbr("FLU")
   expect_error(badge_image(path, alpha = 2), "alpha")
 })
 
@@ -108,7 +108,7 @@ test_that("badge element draws a generic badge for unknown abbreviations", {
   skip_on_cran()
   skip_if_not_installed("vdiffr")
   library(ggplot2)
-  df <- data.frame(teams = c("FLA", "XXX"), value = 1:2)
+  df <- data.frame(teams = c("FLU", "XXX"), value = 1:2)
   p <- ggplot(df, aes(teams, value)) +
     geom_col(width = 0.5) +
     theme_minimal() +
@@ -121,4 +121,42 @@ test_that("badge element draws a generic badge for unknown abbreviations", {
 
 test_that("generic badge exists", {
   expect_true(file.exists(placeholder_badge()))
+})
+
+# compares packed nativeRaster bytes with a magick image, as raw RGBA bytes
+# because the packed integer 0x80000000 is NA_integer_ in R
+raster_bytes <- function(x) writeBin(as.vector(unclass(x)), raw(), size = 4L, endian = "little")
+image_bytes <- function(img) as.vector(magick::image_data(img, "rgba"))
+
+test_that("badge_raster matches badge_image", {
+  path <- badge_from_abbr("FLU")
+  combos <- list(
+    list(1, NA), list(0.8, NA), list(1, "b/w"), list(1, "red"), list(0.5, "b/w")
+  )
+  for (cb in combos) {
+    expect_identical(
+      raster_bytes(badge_raster(path, alpha = cb[[1]], colour = cb[[2]])),
+      image_bytes(badge_image(path, alpha = cb[[1]], colour = cb[[2]]))
+    )
+  }
+  expect_identical(
+    raster_bytes(badge_raster(path)),
+    raster_bytes(rsvg::rsvg_nativeraster(path))
+  )
+  # alpha 0.5 can differ by one level from ImageMagick due to rounding
+  half <- as.integer(raster_bytes(badge_raster(path, alpha = 0.5)))
+  ref <- as.integer(image_bytes(badge_image(path, alpha = 0.5)))
+  expect_lte(max(abs(half - ref)), 1L)
+})
+
+test_that("badge_raster caches by path, alpha and colour", {
+  path <- badge_from_abbr("SAN")
+  rm(list = ls(.badge_cache), envir = .badge_cache)
+  a <- badge_raster(path)
+  expect_identical(badge_raster(path), a)
+  expect_length(ls(.badge_cache), 1L)
+  badge_raster(path, alpha = 0.5)
+  badge_raster(path, colour = "b/w")
+  expect_length(ls(.badge_cache), 3L)
+  expect_error(badge_raster(path, alpha = 2), "alpha")
 })

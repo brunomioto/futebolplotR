@@ -5,10 +5,8 @@
 
 <!-- badges: start -->
 
-[![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![CRAN
-status](https://www.r-pkg.org/badges/version/futebolplotR)](https://CRAN.R-project.org/package=futebolplotR)
+<!-- [![CRAN
+status](https://www.r-pkg.org/badges/version/futebolplotR)](https://CRAN.R-project.org/package=futebolplotR) -->
 
 <!-- badges: end -->
 
@@ -63,7 +61,7 @@ df <- data.frame(
 )
 
 ggplot(df, aes(x = a, y = b)) +
-  geom_futebol_badges(aes(team_abbr = teams), 
+  geom_futebol_badges(aes(team_abbr = teams),
                       width = 0.1) +
   geom_label(aes(label = teams,
                  color = teams,
