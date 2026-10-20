@@ -73,7 +73,7 @@ ggplot(df_teams, aes(x = total_home_points, y = total_away_points)) +
   labs(
     x = "Points home",
     y = "Points away",
-    caption = "Data: @brasileirao",
+    caption = "Data: williamorim/brasileirao",
     title = "Campeonato Brasileiro 2025"
   ) +
   theme_minimal() +
@@ -83,7 +83,7 @@ ggplot(df_teams, aes(x = total_home_points, y = total_away_points)) +
   ) +
   coord_fixed(
     xlim = c(5, 50),
-    ylim = c(5, 50), 
+    ylim = c(5, 50),
     clip = "off"
   )
 ```
@@ -107,7 +107,7 @@ ggplot(df_teams, aes(x = reorder(home_abbr, -goals_scored),
   labs(
     title = "Campeonato Brasileiro 2025",
     y = "Goals Scored",
-    caption = "Data: @brasileirao"
+    caption = "Data: williamorim/brasileirao"
   ) +
   theme_minimal() +
   theme(
@@ -133,7 +133,7 @@ ggplot(df_teams, aes(x = reorder(home_abbr, -goals_difference),
   labs(
     title = "Campeonato Brasileiro 2025",
     y = "Goals difference",
-    caption = "Data: @brasileirao"
+    caption = "Data: williamorim/brasileirao"
   ) +
   theme_minimal() +
   theme(
@@ -183,7 +183,7 @@ ggplot(df_teams, aes(x = goals_scored, y = goals_concede)) +
     ),
     x = "Goals scored",
     y = "Goals conceded",
-    caption = "Data: @brasileirao"
+    caption = "Data: williamorim/brasileirao"
   ) +
   theme_minimal() +
   theme(

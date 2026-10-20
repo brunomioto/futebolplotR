@@ -52,7 +52,10 @@ element_futebol_badge(
 
   The output grob size as a
   [grid::unit](https://rdrr.io/r/grid/unit.html). If given a numeric,
-  `cm` will be applied as unit.
+  `cm` will be applied as unit. Stored in the `image_size` property so
+  the inherited text `size` property retains the numeric type required
+  by
+  [`ggplot2::element_text()`](https://ggplot2.tidyverse.org/reference/element.html).
 
 ## Value
 

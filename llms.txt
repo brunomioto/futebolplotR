@@ -54,7 +54,7 @@ df <- data.frame(
 )
 
 ggplot(df, aes(x = a, y = b)) +
-  geom_futebol_badges(aes(team_abbr = teams), 
+  geom_futebol_badges(aes(team_abbr = teams),
                       width = 0.1) +
   geom_label(aes(label = teams,
                  color = teams,

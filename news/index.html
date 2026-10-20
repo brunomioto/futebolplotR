@@ -57,12 +57,13 @@
 <div class="section level3">
 <h3 id="bug-fixes-and-minor-improvements-0-1-0">Bug fixes and minor improvements<a class="anchor" aria-label="anchor" href="#bug-fixes-and-minor-improvements-0-1-0"></a></h3>
 <ul><li>
+<code><a href="../reference/geom_futebol_badges.html">geom_futebol_badges()</a></code> and <code><a href="../reference/element.html">element_futebol_badge()</a></code> are much faster. Each badge is now rasterised only once per session and reused, and <code>alpha</code> no longer goes through <code><a href="https://docs.ropensci.org/magick/reference/fx.html" class="external-link">magick::image_fx()</a></code>. A scatter plot of 20 badges with <code>alpha</code> went from ~25 s to ~1.7 s (first draw) and ~0.1 s (redraws).</li>
+<li>
 <code><a href="../reference/element.html">element_futebol_badge()</a></code> works again. It supports <code>colour</code> (including <code>"b/w"</code>), <code>alpha</code>, <code>angle</code> and <code>size</code>, and works in axis text and facet strips. (<a href="https://github.com/brunomioto/futebolplotR/issues/4" class="external-link">#4</a>)</li>
 <li>
 <code><a href="../reference/geom_futebol_badges.html">geom_futebol_badges()</a></code> and <code><a href="../reference/element.html">element_futebol_badge()</a></code> warn about unknown team abbreviations and draw a generic badge instead of leaving an empty space.</li>
 <li>Team data now lives in <code>data-raw/teams.csv</code>, so the package doesn’t depend on brasileirao anymore (it’s only used in the Getting Started article).</li>
 <li>Team names are now stored in UTF-8.</li>
-<li>Fixed the exported <code>teams_colors_badges</code> dataset, which had wrong colors for some teams (e.g. Flamengo) and the wrong state for Palmeiras.</li>
 <li>Badge files moved to <code>inst/badges/</code>.</li>
 <li>Removed unused dependencies glue and lifecycle; brasileirao and withr moved to Suggests.</li>
 <li>Added unit and visual tests.</li>
